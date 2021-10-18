@@ -15,7 +15,7 @@
           v-for="(item, index) in items"
           :key="index"
           @click="
-            items.title === 'HTML'
+            item.title === 'HTML'
               ? exportData(
                   getData(),
                   caseData.title === '' ? caseData.id : caseData.title,
