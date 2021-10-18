@@ -1,16 +1,40 @@
 <template>
-  <button-icon
-    text="Export"
-    icon="mdi-file-export"
-    color=""
-    @click="
-      exportData(
-        getData(),
-        caseData.title === '' ? caseData.id : caseData.title,
-        'text/html'
-      )
-    "
-  />
+  <div class="text-center">
+    <v-menu offset-y>
+      <template v-slot:activator="{ on, attrs }">
+        <button-icon
+          text="Export"
+          icon="mdi-file-export"
+          color=""
+          v-bind="attrs"
+          v-on="on"
+        />
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+          @click="
+            items.title === 'HTML'
+              ? exportData(
+                  getData(),
+                  caseData.title === '' ? caseData.id : caseData.title,
+                  'json',
+                  'text/html'
+                )
+              : exportData(
+                  JSON.stringify(caseData, null, 4),
+                  caseData.title === '' ? caseData.id : caseData.title,
+                  'json',
+                  'text/json'
+                )
+          "
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+  </div>
 </template>
 
 <script>
@@ -24,18 +48,21 @@ export default {
       default: () => {},
     },
   },
+  data: () => ({
+    items: [{ title: 'HTML' }, { title: 'JSON' }],
+  }),
   methods: {
-    exportData(data, filename, type) {
+    exportData(data, filename, ext, type) {
       const file = new Blob([data], { type })
       if (window.navigator.msSaveOrOpenBlob)
         // IE10+
-        window.navigator.msSaveOrOpenBlob(file, filename + '.html')
+        window.navigator.msSaveOrOpenBlob(file, filename + '.' + ext)
       else {
         // Others
         const a = document.createElement('a')
         const url = URL.createObjectURL(file)
         a.href = url
-        a.download = filename + '.html'
+        a.download = filename + '.' + ext
         document.body.appendChild(a)
         a.click()
         setTimeout(function () {
