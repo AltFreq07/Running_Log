@@ -1,0 +1,50 @@
+<template>
+  <div class="d-flex justify-center">
+    <v-btn
+      @click="
+        array.length > 0
+          ? ($refs['carousel-' + caseHeader + '-' + caseRow].dialog = true)
+          : ''
+      "
+      ><v-icon v-if="array.length > 0">{{ getIcon }}</v-icon></v-btn
+    >
+    <gallery-carousel
+      :ref="'carousel-' + caseHeader + '-' + caseRow"
+      :array="array"
+    />
+  </div>
+</template>
+
+<script>
+import GalleryCarousel from './GalleryCarousel.vue'
+
+import ColumnProps from '~/mixins/ColumnProps.js'
+export default {
+  components: { GalleryCarousel },
+  mixins: [ColumnProps],
+  computed: {
+    getIcon() {
+      switch (this.array.length) {
+        case 1:
+          return 'mdi-numeric-1-box'
+        case 2:
+          return 'mdi-numeric-2-box-multiple'
+        case 3:
+          return 'mdi-numeric-3-box-multiple'
+        case 4:
+          return 'mdi-numeric-4-box-multiple'
+        case 5:
+          return 'mdi-numeric-5-box-multiple'
+        case 6:
+          return 'mdi-numeric-6-box-multiple'
+        case 7:
+          return 'mdi-numeric-7-box-multiple'
+        case 8:
+          return 'mdi-numeric-8-box-multiple'
+        default:
+          return 'numeric-9-plus-box-multiple'
+      }
+    },
+  },
+}
+</script>
