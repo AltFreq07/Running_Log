@@ -19,7 +19,7 @@
               ? exportData(
                   getData(),
                   caseData.title === '' ? caseData.id : caseData.title,
-                  'json',
+                  'html',
                   'text/html'
                 )
               : exportData(
