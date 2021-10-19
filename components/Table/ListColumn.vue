@@ -7,6 +7,7 @@
     persistent-hint
     flat
     class="text-body-2 ma-0 pa-0"
+    ref="input"
     @input="
       updateCaseData({
         id: caseID,

@@ -21,7 +21,11 @@
         @mouseenter="hoveredRow = index"
         @mouseleave="hoveredRow = -1"
       >
-        <td v-for="(value, name, i) in item" :key="i">
+        <td
+          v-for="(value, name, i) in item"
+          :key="i"
+          @click="focusInput(name, index, caseData.columns[i].type)"
+        >
           <component
             class="d-flex justify-center"
             :is="getColumnComponent(caseData.columns[i].type, name)"
@@ -70,6 +74,9 @@ export default {
     }
   },
   methods: {
+    focusInput(name, index, type) {
+      if (type === 'Text') this.$refs[name + '-' + index][0].$refs.input.focus()
+    },
     pasteEvent(e) {
       if (this.screenshots && this.hoveredRow >= 0) {
         this.$refs[

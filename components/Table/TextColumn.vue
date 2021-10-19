@@ -8,6 +8,7 @@
     class="text-body-2 ma-0 pa-0"
     :clearable="focused"
     :value="value"
+    ref="input"
     @focus="focused = true"
     @blur="focused = false"
     @input="
