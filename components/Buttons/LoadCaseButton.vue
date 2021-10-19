@@ -8,6 +8,7 @@
           :color="color"
           v-bind="attrs"
           v-on="on"
+          @click="log"
         />
       </template>
       <v-list>
@@ -17,7 +18,9 @@
           link
           :to="'/case/' + item.id"
         >
-          <v-list-item-title>{{ item.id }}</v-list-item-title>
+          <v-list-item-title>{{
+            item.title === '' ? item.id : item.title
+          }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -34,6 +37,11 @@ export default {
     color: {
       type: String,
       default: '',
+    },
+  },
+  methods: {
+    log() {
+      console.log(this.getCases)
     },
   },
   computed: {
