@@ -6,9 +6,7 @@
           ? ($refs['carousel-' + caseHeader + '-' + caseRow].dialog = true)
           : ($refs['snackbar-' + caseHeader + '-' + caseRow].snackbar = true)
       "
-      ><v-icon :color="array.length > 0 ? 'primary' : ''">{{
-        getIcon
-      }}</v-icon></v-btn
+      ><v-icon>{{ getIcon }}</v-icon></v-btn
     >
     <screenshot-snackbar
       :ref="'snackbar-' + caseHeader + '-' + caseRow"
