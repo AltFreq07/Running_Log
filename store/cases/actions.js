@@ -1,6 +1,7 @@
 export default {
     createCase: (context, data) => { context.commit("createCase", data) },
     updateTitle: (context, data) => { context.commit("updateTitle", data) },
+    updateCategory: (context, data) => { context.commit("updateCategory", data) },
     addDefaultData: (context, data) => { context.commit("addDefaultData", data) },
     updateCaseData: (context, data) => { context.commit("updateCaseData", data) },
     addArrayData: (context, data) => { context.commit("addArrayData", data) },

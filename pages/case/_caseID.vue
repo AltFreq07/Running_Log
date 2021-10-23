@@ -1,6 +1,6 @@
 <template>
   <div @paste="pasteEvent">
-    <toolbar :case-id="caseID" :title="caseData.title" :caseData="caseData" />
+    <toolbar :caseData="caseData" />
     <log-table :case-data="caseData" ref="dataTable" />
   </div>
 </template>

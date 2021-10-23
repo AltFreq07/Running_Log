@@ -7,6 +7,9 @@ export default {
     updateTitle: (state, data) => {
         state.cases.find(item => item.id === data.id).title = data.title
     },
+    updateCategory: (state, data) => {
+        state.cases.find(item => item.id === data.id).category = data.category
+    },
     addDefaultData: (state, data) => {
         state.cases.find(item => item.id === data.id).data.push(data.default)
     },

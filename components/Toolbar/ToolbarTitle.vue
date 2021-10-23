@@ -1,12 +1,13 @@
 <template>
   <v-toolbar-title
     ><v-text-field
-      class="text-h4"
-      :value="title"
+      class="text-h4 pt-2"
+      style="width: 384px"
+      :value="caseData === undefined ? '' : caseData.title"
       placeholder="Enter a title"
       :hide-details="true"
       :append-icon="titleIcon ? 'mdi-pencil' : ''"
-      @input="updateTitle({ id: caseId, title: $event })"
+      @input="updateTitle({ id: caseData.id, title: $event })"
       @focus="titleIcon = true"
       @blur="titleIcon = false"
     ></v-text-field>
@@ -17,13 +18,9 @@
 import { mapActions } from 'vuex'
 export default {
   props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    caseId: {
-      type: String,
-      default: '',
+    caseData: {
+      type: Object,
+      default: () => {},
     },
   },
   data() {

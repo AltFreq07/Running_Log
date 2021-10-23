@@ -1,7 +1,18 @@
 <template>
-  <v-app-bar app dense>
+  <v-app-bar app>
     <v-spacer />
-    <toolbar-title :case-id="caseId" :title="title" />
+    <v-container>
+      <v-row no-gutters justify="center">
+        <v-col cols="auto">
+          <toolbar-title :case-data="caseData" />
+        </v-col>
+      </v-row>
+      <v-row no-gutters justify="center">
+        <v-col cols="auto">
+          <toolbar-category :case-data="caseData" />
+        </v-col>
+      </v-row>
+    </v-container>
     <v-spacer />
     <new-case-button />
     <load-case-button />
@@ -19,14 +30,6 @@ import OptionsMenu from './OptionsMenu/OptionsMenu.vue'
 export default {
   components: { NewCaseButton, LoadCaseButton, ExportCaseButton, OptionsMenu },
   props: {
-    caseId: {
-      type: String,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
     caseData: {
       type: Object,
       default: () => {},
