@@ -42,7 +42,7 @@ export default {
         case 8:
           return 'mdi-numeric-8-box-multiple'
         default:
-          return 'numeric-9-plus-box-multiple'
+          return 'mdi-numeric-9-plus-box-multiple'
       }
     },
   },
