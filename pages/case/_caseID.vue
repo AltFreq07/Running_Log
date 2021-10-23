@@ -10,7 +10,6 @@ import { mapGetters } from 'vuex'
 import LogTable from '../../components/Table/LogTable.vue'
 export default {
   components: { LogTable },
-  middleware: ['case'],
   asyncData({ params }) {
     const caseID = params.caseID // When calling /abc the slug will be "abc"
     return { caseID }
