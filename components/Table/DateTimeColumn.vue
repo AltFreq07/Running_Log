@@ -36,6 +36,10 @@
 .mx-icon-clear:hover {
   color: var(--v-primary-text);
 }
+
+.mx-datepicker {
+  width: 165px;
+}
 </style>
 
 <script>
