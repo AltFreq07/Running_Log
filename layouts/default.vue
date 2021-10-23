@@ -21,8 +21,6 @@ export default {
     }),
   },
   mounted() {
-    console.log(this.getTheme, 'THEME')
-    console.log(this.$store.getters['settings/getTheme'], 'THEME2')
     if (this.getTheme === true) {
       return (this.$vuetify.theme.dark = true)
     } else {
