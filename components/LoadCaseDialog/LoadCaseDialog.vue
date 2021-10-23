@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" persistent width="300">
-      <v-card>
+    <v-dialog v-model="dialog" persistent width="400">
+      <v-card loading elevation="2">
         <v-card-title class="text-h5 justify-center">
           Select Option
         </v-card-title>
@@ -10,6 +10,11 @@
           <v-spacer></v-spacer>
           <load-case-button color="primary" />
         </v-card-actions>
+        <v-card-subtitle class="warning--text pt-5"
+          >Warning: All data is saved within the browsers storage. Clearing the
+          browsers cache may clear the stored data. Be sure to export your data
+          to ensure persistence.</v-card-subtitle
+        >
       </v-card>
     </v-dialog>
   </div>
