@@ -1,7 +1,7 @@
 <template>
   <v-text-field
-    class="text-caption pl-4"
-    style="width: 379px"
+    class="text-caption pl-1"
+    style="width: 381px"
     :value="caseData === undefined ? '' : caseData.category"
     placeholder="Category"
     :hide-details="true"
