@@ -1,24 +1,48 @@
 <template>
   <div @paste="pasteEvent">
-    <toolbar :caseData="caseData" />
-    <log-table :case-data="caseData" ref="dataTable" />
+    <div v-if="$fetchState.pending || loading" class="center-page">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+      <p class="primary-text pt-4 text-center">Loading</p>
+    </div>
+    <div v-else>
+      <toolbar :caseData="caseData" />
+      <log-table :case-data="caseData" ref="dataTable" />
+    </div>
   </div>
 </template>
+
+<style>
+.center-page {
+  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+</style>
+
+</style>
 
 <script>
 import { mapGetters } from 'vuex'
 import LogTable from '../../components/Table/LogTable.vue'
 export default {
   components: { LogTable },
-  asyncData({ params }) {
-    const caseID = params.caseID // When calling /abc the slug will be "abc"
-    return { caseID }
+  fetch() {
+    this.caseID = this.$route.params.caseID
   },
   data() {
     return {
+      caseID: '',
       caseData: {},
+      loading: true,
     }
   },
+
   methods: {
     pasteEvent(e) {
       this.$refs.dataTable.pasteEvent(e)
@@ -31,6 +55,12 @@ export default {
   },
   mounted() {
     this.caseData = this.getCase(this.caseID)
+    setTimeout(
+      function () {
+        this.loading = false
+      }.bind(this),
+      250
+    )
   },
 }
 </script>
