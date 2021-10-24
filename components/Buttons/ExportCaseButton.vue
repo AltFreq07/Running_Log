@@ -14,21 +14,7 @@
         <v-list-item
           v-for="(item, index) in items"
           :key="index"
-          @click="
-            item.title === 'HTML'
-              ? exportData(
-                  getData(),
-                  caseData.title === '' ? caseData.id : caseData.title,
-                  'html',
-                  'text/html'
-                )
-              : exportData(
-                  JSON.stringify(caseData, null, 4),
-                  caseData.title === '' ? caseData.id : caseData.title,
-                  'json',
-                  'text/json'
-                )
-          "
+          @click="getExportData(item.title)"
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
@@ -39,7 +25,7 @@
 
 <script>
 import ButtonIcon from './ButtonIcon.vue'
-
+import * as ExportFunctions from '@/services/ExportService.js'
 export default {
   components: { ButtonIcon },
   props: {
@@ -49,7 +35,7 @@ export default {
     },
   },
   data: () => ({
-    items: [{ title: 'HTML' }, { title: 'JSON' }],
+    items: [{ title: 'HTML' }, { title: 'Markdown' }, { title: 'JSON' }],
   }),
   methods: {
     exportData(data, filename, ext, type) {
@@ -71,55 +57,42 @@ export default {
         }, 0)
       }
     },
-    decodeHtml(html) {
-      const txt = document.createElement('textarea')
-      txt.innerHTML = html
-      return txt.value
+    getExportData(string) {
+      switch (string) {
+        case 'HTML':
+          this.exportData(
+            this.getHTMLData(),
+            this.caseData.title === '' ? this.caseData.id : this.caseData.title,
+            'html',
+            'text/html'
+          )
+          break
+        case 'JSON':
+          this.exportData(
+            JSON.stringify(this.caseData, null, 4),
+            this.caseData.title === '' ? this.caseData.id : this.caseData.title,
+            'json',
+            'text/json'
+          )
+          break
+        case 'Markdown':
+          this.exportData(
+            this.getMarkdownData(),
+            this.caseData.title === '' ? this.caseData.id : this.caseData.title,
+            'md',
+            'text/markdown'
+          )
+      }
     },
-    getData() {
-      const data =
-        `
-      <!DOCTYPE html>
-<html>
-
-<head>
-    <title>` +
-        this.caseData.title +
-        `</title>
-</head>
-
-<body>
-    <form action="` +
-        window.location.protocol +
-        `//` +
-        window.location.host +
-        `/unencrypted/report" method="post" id="form" enctype="multipart/form-data">
-        <input type="hidden" value="" name='data' id="data">
-    </form>
-    <button onclick="clicked()">Click</button>
-</body>
-` +
-        this.decodeHtml('&lt;script&gt;') +
-        `
-        const basicObject = ` +
-        JSON.stringify(this.caseData) +
-        `
-window.onload = function (e) {
-       document.querySelector('#data').value = JSON.stringify(basicObject)
-
-        document.querySelector('#form').submit()
-    }
-    function clicked() {
-        document.querySelector('#data').value = JSON.stringify(basicObject)
-
-        document.querySelector('#form').submit()
-    }n
-    ` +
-        this.decodeHtml('&lt;/script&gt;') +
-        `
-</html>
-      `
-      return data
+    getHTMLData() {
+      return ExportFunctions.getHTMLData(
+        window.location.protocol,
+        window.location.host,
+        this.caseData
+      )
+    },
+    getMarkdownData() {
+      return ExportFunctions.getMarkdownData(this.caseData)
     },
   },
 }
