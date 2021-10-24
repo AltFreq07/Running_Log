@@ -10,7 +10,7 @@
       <p class="primary-text pt-4 text-center">Loading</p>
     </div>
     <div v-else>
-      <toolbar-export :case-id="id" :title="title" />
+      <toolbar-export :case-data="data" />
       <log-table-export ref="dataTable" :case-data="data" />
     </div>
   </div>
@@ -70,7 +70,6 @@ export default {
     setTimeout(
       function () {
         this.loading = false
-        console.log(this.loading, this.asyncDone, 'BOOL')
       }.bind(this),
       250
     )

@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app dense>
     <v-spacer />
-    <toolbar-title-export :title="title" />
+    <toolbar-title-export :title="caseData.title" />
     <v-spacer />
     <theme-change-icon-button />
   </v-app-bar>
@@ -15,13 +15,9 @@ import ToolbarTitleExport from './ToolbarTitleExport.vue'
 export default {
   components: { ToolbarTitleExport, ThemeChangeIconButton },
   props: {
-    caseId: {
-      type: String,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '',
+    caseData: {
+      type: Object,
+      default: () => {},
     },
   },
 }
