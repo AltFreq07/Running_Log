@@ -1,7 +1,7 @@
 <template>
   <v-toolbar-title
     ><v-text-field
-      class="text-h4 pt-2"
+      class="text-h4 pt-2 centered-input"
       style="width: 384px"
       :value="caseData === undefined ? '' : caseData.title"
       placeholder="Enter a title"
@@ -35,3 +35,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.centered-input >>> input {
+  text-align: center;
+}
+</style>

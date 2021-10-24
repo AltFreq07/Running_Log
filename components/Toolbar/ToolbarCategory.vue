@@ -1,6 +1,6 @@
 <template>
   <v-text-field
-    class="text-caption pl-1"
+    class="text-caption pl-1 centered-input"
     style="width: 381px"
     :value="caseData === undefined ? '' : caseData.category"
     placeholder="Category"
@@ -33,3 +33,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.centered-input >>> input {
+  text-align: center;
+}
+</style>
