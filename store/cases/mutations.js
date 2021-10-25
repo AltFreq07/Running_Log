@@ -4,6 +4,9 @@ export default {
     createCase: (state, data) => {
         state.cases.push(data)
     },
+    deleteCase: (state, data) => {
+        state.cases = state.cases.filter(item => item.id !== data)
+    },
     updateTitle: (state, data) => {
         state.cases.find(item => item.id === data.id).title = data.title
     },

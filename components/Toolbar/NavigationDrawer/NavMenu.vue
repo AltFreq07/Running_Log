@@ -3,7 +3,7 @@
     <nav-title />
     <nav-items :caseData="caseData" />
     <template v-slot:append>
-      <nav-options />
+      <nav-options :case-id="caseData.id" />
     </template>
   </v-navigation-drawer>
 </template>.
