@@ -17,7 +17,6 @@ export function getHTMLData(protocol, host, caseData) {
     `/unencrypted/report" method="post" id="form" enctype="multipart/form-data">
       <input type="hidden" value="" name='data' id="data">
   </form>
-  <button onclick="clicked()">Click</button>
 </body>
 <script>
       const basicObject = ` +
@@ -28,11 +27,6 @@ window.onload = function (e) {
 
       document.querySelector('#form').submit()
   }
-  function clicked() {
-      document.querySelector('#data').value = JSON.stringify(basicObject)
-
-      document.querySelector('#form').submit()
-  }n
   </script>
 </html>
     `
