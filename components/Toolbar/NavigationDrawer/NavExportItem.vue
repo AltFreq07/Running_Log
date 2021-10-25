@@ -1,42 +1,41 @@
 <template>
-  <div class="text-center">
-    <v-menu offset-y>
-      <template v-slot:activator="{ on, attrs }">
-        <button-icon
-          text="Export"
-          icon="mdi-file-export"
-          color=""
-          v-bind="attrs"
-          v-on="on"
-        />
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="(item, index) in items"
-          :key="index"
-          @click="getExportData(item.title)"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-  </div>
+  <v-list-group prepend-icon="mdi-file-export" no-action>
+    <template v-slot:activator>
+      <v-list-item-title>Export</v-list-item-title>
+    </template>
+    <v-list-item
+      v-for="(item, index) in items"
+      :key="index"
+      link
+      @click="getExportData(item.title)"
+    >
+      <v-list-item-title>{{ item.title }}</v-list-item-title>
+      <v-list-item-icon>
+        <v-icon>{{ item.icon }}</v-icon>
+      </v-list-item-icon>
+    </v-list-item>
+  </v-list-group>
 </template>
 
 <script>
-import ButtonIcon from './ButtonIcon.vue'
 import * as ExportFunctions from '@/services/ExportService.js'
+
 export default {
-  components: { ButtonIcon },
   props: {
     caseData: {
       type: Object,
       default: () => {},
     },
   },
-  data: () => ({
-    items: [{ title: 'HTML' }, { title: 'Markdown' }, { title: 'JSON' }],
-  }),
+  data() {
+    return {
+      items: [
+        { title: 'HTML', icon: 'mdi-language-html5' },
+        { title: 'Markdown', icon: 'mdi-language-markdown-outline' },
+        { title: 'JSON', icon: 'mdi-code-json' },
+      ],
+    }
+  },
   methods: {
     exportData(data, filename, ext, type) {
       const file = new Blob([data], { type })

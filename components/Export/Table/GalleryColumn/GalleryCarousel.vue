@@ -6,12 +6,7 @@
       :hide-delimiters="hideControls"
       @change="activateControls"
     >
-      <v-carousel-item
-        v-for="(image, i) in array"
-        :key="i"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      >
+      <v-carousel-item v-for="(image, i) in array" :key="i">
         <v-sheet height="100%" width="100%" absolute>
           <v-container style="height: inherit">
             <v-row
@@ -38,29 +33,13 @@
 
 <script>
 import ColumnProps from '~/mixins/ColumnProps.js'
-
+import ActivateGalleryControls from '@/mixins/ActivateGalleryControls'
 export default {
-  mixins: [ColumnProps],
+  mixins: [ColumnProps, ActivateGalleryControls],
   data() {
     return {
       dialog: false,
-      hideControls: false,
-      timer: undefined,
     }
-  },
-  methods: {
-    activateControls() {
-      console.log('hiding controls')
-      this.hideControls = false
-      if (this.timer !== undefined) window.clearTimeout(this.timer)
-      this.timer = setTimeout(
-        function () {
-          this.hideControls = true
-          console.log('hiding controls now')
-        }.bind(this),
-        2000
-      )
-    },
   },
 }
 </script>

@@ -1,14 +1,6 @@
 <template>
   <div @paste="pasteEvent">
-    <div v-if="$fetchState.pending || loading" class="center-page">
-      <v-progress-circular
-        :size="70"
-        :width="7"
-        color="primary"
-        indeterminate
-      ></v-progress-circular>
-      <p class="primary-text pt-4 text-center">Loading</p>
-    </div>
+    <page-preload v-if="$fetchState.pending || loading" class="center-page" />
     <div v-else>
       <toolbar
         :caseData="caseData"
@@ -20,23 +12,13 @@
   </div>
 </template>
 
-<style>
-.center-page {
-  transform: translate(-50%, -50%);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-}
-</style>
-
-</style>
-
 <script>
 import { mapGetters } from 'vuex'
 import LogTable from '../../components/Table/LogTable.vue'
-import NavMenu from '../../components/Toolbar/NavMenu.vue'
+import NavMenu from '../../components/Toolbar/NavigationDrawer/NavMenu.vue'
+import PagePreload from '@/components/Loader/PagePreload.vue'
 export default {
-  components: { LogTable, NavMenu },
+  components: { LogTable, NavMenu, PagePreload },
   fetch() {
     this.caseID = this.$route.params.caseID
   },

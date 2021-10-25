@@ -22,7 +22,6 @@
       <v-spacer />
       <v-list-item-action @click.stop>
         <v-btn icon>
-          <!-- <v-btn icon @click.stop.prevent="removeDeviceList(item)"> -->
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-list-item-action></template
@@ -48,7 +47,6 @@ export default {
   mixins: [ColumnProps],
   data() {
     return {
-      deviceList: ['Windows 10 Host', 'Kali-Linux VM', 'Windows 10 Malware VM'],
       search: null,
     }
   },

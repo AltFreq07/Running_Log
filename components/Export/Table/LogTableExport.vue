@@ -28,7 +28,6 @@
 
 
 <script>
-// import ScreenshotColumn from './ScreenshotColumn/ScreenshotColumn.vue'
 import DisplayColumn from './DisplayColumn.vue'
 import GalleryColumn from './GalleryColumn/GalleryColumn.vue'
 export default {

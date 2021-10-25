@@ -1,14 +1,6 @@
 <template>
   <div>
-    <div v-if="!asyncDone || loading" class="center-page">
-      <v-progress-circular
-        :size="70"
-        :width="7"
-        color="primary"
-        indeterminate
-      ></v-progress-circular>
-      <p class="primary-text pt-4 text-center">Loading</p>
-    </div>
+    <page-preload v-if="!asyncDone || loading" class="center-page" />
     <div v-else>
       <toolbar-export :case-data="data" />
       <log-table-export ref="dataTable" :case-data="data" />
@@ -16,22 +8,15 @@
   </div>
 </template>
 
-<style>
-.center-page {
-  transform: translate(-50%, -50%);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-}
-</style>
 
 <script>
 import { mapGetters } from 'vuex'
 import ToolbarExport from '../../components/Export/Toolbar/ToolbarExport.vue'
 import LogTableExport from '../../components/Export/Table/LogTableExport.vue'
+import PagePreload from '@/components/Loader/PagePreload.vue'
 
 export default {
-  components: { LogTableExport, ToolbarExport },
+  components: { LogTableExport, ToolbarExport, PagePreload },
   asyncData({ params, req }) {
     const importType = params.import
     const asyncDone = true
@@ -42,7 +27,6 @@ export default {
       loading: true,
     }
   },
-
   computed: {
     id() {
       return this.caseData ? this.caseData.id : ''

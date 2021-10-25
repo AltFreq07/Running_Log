@@ -15,12 +15,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import ThemeToggle from '@/mixins/ThemeToggle.js'
 export default {
-  methods: {
-    ...mapActions({
-      toggleTheme: 'settings/toggleTheme',
-    }),
-  },
+  mixins: [ThemeToggle],
 }
 </script>

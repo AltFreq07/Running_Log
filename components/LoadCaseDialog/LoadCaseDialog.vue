@@ -6,9 +6,9 @@
           Select Option
         </v-card-title>
         <v-card-actions>
-          <new-case-button color="primary" />
+          <new-case-button />
           <v-spacer></v-spacer>
-          <load-case-button color="primary" />
+          <load-case-button />
         </v-card-actions>
         <v-card-subtitle class="warning--text pt-5"
           >Warning: All data is saved within the browsers storage. Clearing the
