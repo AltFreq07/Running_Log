@@ -1,5 +1,6 @@
 <template>
   <v-app-bar app dense>
+    <div style="width: 20px"></div>
     <v-spacer />
     <toolbar-title-export :title="caseData.title" />
     <v-spacer />
