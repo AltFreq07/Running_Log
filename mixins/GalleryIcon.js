@@ -4,6 +4,8 @@ export default {
     computed: {
         getIcon() {
             switch (this.array.length) {
+                case 0:
+                    return 'mdi-image-plus'
                 case 1:
                     return 'mdi-numeric-1-box'
                 case 2:
