@@ -21,9 +21,13 @@ export default {
   },
   methods: {
     deleteLog() {
-      console.log('delete', this.caseId)
-      this.deleteCase(this.caseId)
       this.$router.push('/')
+      setTimeout(
+        function () {
+          this.deleteCase(this.caseId)
+        }.bind(this),
+        0
+      )
     },
     ...mapActions({
       deleteCase: 'cases/deleteCase',
