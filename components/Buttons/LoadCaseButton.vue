@@ -13,7 +13,7 @@
       <v-expansion-panels style="width: fit-content">
         <v-expansion-panel v-for="(item, value, i) in getCategories" :key="i">
           <v-expansion-panel-header>
-            {{ value === '' ? 'Uncategorised' : value }}
+            {{ value }}
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-list>

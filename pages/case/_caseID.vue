@@ -10,7 +10,11 @@
       <p class="primary-text pt-4 text-center">Loading</p>
     </div>
     <div v-else>
-      <toolbar :caseData="caseData" />
+      <toolbar
+        :caseData="caseData"
+        @navDrawerClicked="$refs.navDrawer.toggleDrawer()"
+      />
+      <nav-menu ref="navDrawer" :caseData="caseData" />
       <log-table :case-data="caseData" ref="dataTable" />
     </div>
   </div>
@@ -30,8 +34,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import LogTable from '../../components/Table/LogTable.vue'
+import NavMenu from '../../components/Toolbar/NavMenu.vue'
 export default {
-  components: { LogTable },
+  components: { LogTable, NavMenu },
   fetch() {
     this.caseID = this.$route.params.caseID
   },
