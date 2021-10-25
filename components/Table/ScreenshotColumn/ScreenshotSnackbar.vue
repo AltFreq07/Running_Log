@@ -1,6 +1,6 @@
 <template>
   <v-snackbar v-model="snackbar" timeout="2000">
-    Drag and drop or paste an image file.
+    Highlight the row and paste your image file or screenshot.
     <template v-slot:action="{ attrs }">
       <v-btn text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
     </template>
