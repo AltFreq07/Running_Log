@@ -2,7 +2,7 @@
   <v-data-table
     :headers="caseData.columns"
     :items="caseData.data"
-    class="elevation-1 mt-10"
+    class="elevation-1"
     disable-pagination
     :hide-default-footer="true"
   >
