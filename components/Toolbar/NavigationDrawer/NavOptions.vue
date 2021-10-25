@@ -5,6 +5,7 @@
         <v-list-item-title>Options</v-list-item-title>
       </template>
       <nav-options-theme-item />
+      <nav-options-column-item />
       <nav-options-delete-item :case-id="caseId" />
     </v-list-group>
   </v-list>
@@ -13,6 +14,7 @@
 <script>
 import NavOptionsThemeItem from './NavOptionsThemeItem.vue'
 import NavOptionsDeleteItem from './NavOptionsDeleteItem.vue'
+import NavOptionsColumnItem from './NavOptionsColumnItem.vue'
 
 export default {
   props: {
@@ -21,6 +23,10 @@ export default {
       default: '',
     },
   },
-  components: { NavOptionsThemeItem, NavOptionsDeleteItem },
+  components: {
+    NavOptionsThemeItem,
+    NavOptionsDeleteItem,
+    NavOptionsColumnItem,
+  },
 }
 </script>

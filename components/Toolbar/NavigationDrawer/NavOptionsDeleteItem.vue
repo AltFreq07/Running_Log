@@ -1,5 +1,9 @@
 <template>
-  <v-list-item @click="deleteLog">
+  <v-list-item @click="checkDelete">
+    <delete-confirmation-dialog
+      ref="deleteConfirmationDialog"
+      :case-id="caseId"
+    />
     <v-list-item-title class="error--text">Delete Log</v-list-item-title>
     <v-list-item-icon
       ><v-icon color="error">mdi-trash-can</v-icon></v-list-item-icon
@@ -8,30 +12,19 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import DeleteConfirmationDialog from './DeleteConfirmationDialog.vue'
 export default {
+  components: { DeleteConfirmationDialog },
   props: {
     caseId: {
       type: String,
       default: '',
     },
   },
-  data() {
-    return {}
-  },
   methods: {
-    deleteLog() {
-      this.$router.push('/')
-      setTimeout(
-        function () {
-          this.deleteCase(this.caseId)
-        }.bind(this),
-        0
-      )
+    checkDelete() {
+      this.$refs.deleteConfirmationDialog.dialog = true
     },
-    ...mapActions({
-      deleteCase: 'cases/deleteCase',
-    }),
   },
 }
 </script>
