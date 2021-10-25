@@ -13,6 +13,7 @@ export default {
                 id: uuid,
                 columns: this.defaultColumns,
                 title: '',
+                category: '',
                 lists: {},
                 data: [],
             })
