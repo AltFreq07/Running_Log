@@ -4,24 +4,16 @@ export function getHTMLData(protocol, host, caseData) {
 <html>
 
 <head>
-  <title>` +
-    caseData.title +
-    `</title>
+  <title>${caseData.title}</title>
 </head>
 
 <body>
-  <form action="` +
-    protocol +
-    `//` +
-    host +
-    `/unencrypted/report" method="post" id="form" enctype="multipart/form-data">
+  <form action="${protocol}//${host}/unencrypted/report" method="post" id="form" enctype="multipart/form-data">
       <input type="hidden" value="" name='data' id="data">
   </form>
 </body>
 <script>
-      const basicObject = ` +
-    JSON.stringify(caseData) +
-    `
+      const basicObject = ${JSON.stringify(caseData)}
 window.onload = function (e) {
      document.querySelector('#data').value = JSON.stringify(basicObject)
 
