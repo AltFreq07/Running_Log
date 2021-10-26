@@ -44,21 +44,13 @@
 
 
 <script>
-import ActionsColumn from './ActionsColumn.vue'
-import DateTimeColumn from './DateTimeColumn.vue'
-import ListColumn from './ListColumn.vue'
 import LogTableFooter from './LogTableFooter.vue'
-import TextColumn from './TextColumn.vue'
-import ScreenshotColumn from './ScreenshotColumn/ScreenshotColumn.vue'
+import GetColumnComponent from '@/mixins/GetColumnComponent.js'
 
 export default {
+  mixins: [GetColumnComponent],
   components: {
     LogTableFooter,
-    DateTimeColumn,
-    TextColumn,
-    ActionsColumn,
-    ListColumn,
-    ScreenshotColumn,
   },
   props: {
     caseData: {
@@ -82,30 +74,6 @@ export default {
         this.$refs[
           this.screenshotsHeader + '-' + this.hoveredRow
         ][0].pasteEvent(e)
-      }
-    },
-    getColumnComponent(type, header) {
-      switch (type) {
-        case 'Text': {
-          return TextColumn
-        }
-        case 'DateTime': {
-          return DateTimeColumn
-        }
-        case 'Actions': {
-          return ActionsColumn
-        }
-        case 'List': {
-          return ListColumn
-        }
-        case 'Screenshots': {
-          this.screenshots = true
-          this.screenshotsHeader = header
-          return ScreenshotColumn
-        }
-        default: {
-          return TextColumn
-        }
       }
     },
   },

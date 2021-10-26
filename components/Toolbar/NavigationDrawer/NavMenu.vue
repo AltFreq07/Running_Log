@@ -11,7 +11,7 @@
 <script>
 import NavTitle from './NavTitle.vue'
 import NavItems from './NavItems.vue'
-import NavOptions from './NavOptions.vue'
+import NavOptions from './Options/NavOptions.vue'
 
 export default {
   components: { NavTitle, NavItems, NavOptions },
