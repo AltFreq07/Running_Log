@@ -1,5 +1,6 @@
 <template>
-  <v-textarea
+  <v-simple-checkbox input-value="true"></v-simple-checkbox>
+  <!-- <v-textarea
     auto-grow
     dense
     flat
@@ -11,25 +12,24 @@
     ref="input"
     @focus="focused = true"
     @blur="focused = false"
-    @input="$emit('updateData', $event !== null ? $event : '')"
+    @input="
+      updateCaseData({
+        id: caseID,
+        row: caseRow,
+        header: caseHeader,
+        data: $event !== null ? $event : '',
+      })
+    "
   >
-  </v-textarea>
+  </v-textarea> -->
 </template>
-
-<style>
-.v-text-field > .v-input__control > .v-input__slot:before {
-  border-style: none !important;
-}
-</style>
 
 <script>
 import ColumnProps from '~/mixins/ColumnProps.js'
 export default {
   mixins: [ColumnProps],
   data() {
-    return {
-      focused: false,
-    }
+    return {}
   },
 }
 </script>

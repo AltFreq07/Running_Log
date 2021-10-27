@@ -3,7 +3,7 @@
     <nav-title />
     <nav-items :caseData="caseData" />
     <template v-slot:append>
-      <nav-options :case-id="caseData.id" />
+      <nav-options :case-data="caseData" />
     </template>
   </v-navigation-drawer>
 </template>.
@@ -12,15 +12,11 @@
 import NavTitle from './NavTitle.vue'
 import NavItems from './NavItems.vue'
 import NavOptions from './Options/NavOptions.vue'
+import CaseDataProp from '@/mixins/CaseDataProp.js'
 
 export default {
+  mixins: [CaseDataProp],
   components: { NavTitle, NavItems, NavOptions },
-  props: {
-    caseData: {
-      type: Object,
-      default: () => {},
-    },
-  },
   data() {
     return {
       drawer: false,

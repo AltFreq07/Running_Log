@@ -3,21 +3,16 @@
     <v-btn
       @click="
         array.length > 0
-          ? ($refs['carousel-' + caseHeader + '-' + caseRow].dialog = true)
-          : ($refs['snackbar-' + caseHeader + '-' + caseRow].snackbar = true)
+          ? ($refs.carousel.dialog = true)
+          : ($refs.snackbar.snackbar = true)
       "
       ><v-icon>{{ getIcon }}</v-icon></v-btn
     >
-    <screenshot-snackbar
-      :ref="'snackbar-' + caseHeader + '-' + caseRow"
-      :snackbar="true"
-    />
+    <screenshot-snackbar ref="snackbar" :snackbar="true" />
     <screenshot-carousel
-      :ref="'carousel-' + caseHeader + '-' + caseRow"
+      ref="carousel"
       :array="array"
-      :caseID="caseID"
-      :caseRow="caseRow"
-      :caseHeader="caseHeader"
+      @removeArrayData="$emit('removeArrayData', $event)"
     />
   </div>
 </template>

@@ -8,5 +8,6 @@ export default {
     addArrayData: (context, data) => { context.commit("addArrayData", data) },
     removeArrayData: (context, data) => { context.commit("removeArrayData", data) },
     deleteCaseData: (context, data) => { context.commit("deleteCaseData", data) },
-    addListItem: (context, data) => { context.commit("addListItem", data) }
+    addListItem: (context, data) => { context.commit("addListItem", data) },
+    deleteColumn: (context, data) => { context.commit("deleteColumn", data) },
 }

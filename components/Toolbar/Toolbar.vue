@@ -22,12 +22,8 @@
 
 
 <script>
+import CaseDataProp from '@/mixins/CaseDataProp.js'
 export default {
-  props: {
-    caseData: {
-      type: Object,
-      default: () => {},
-    },
-  },
+  mixins: [CaseDataProp],
 }
 </script>

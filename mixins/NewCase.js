@@ -11,7 +11,7 @@ export default {
             const uuid = uuidv4()
             this.createCase({
                 id: uuid,
-                columns: this.defaultColumns,
+                columns: [...this.defaultColumns],
                 title: '',
                 category: '',
                 lists: {},

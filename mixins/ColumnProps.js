@@ -8,17 +8,9 @@ export default {
             type: Array,
             default: () => []
         },
-        caseID: {
-            type: String,
-            default: '',
-        },
-        caseRow: {
-            type: Number,
-            default: 0,
-        },
-        caseHeader: {
-            type: String,
-            default: '',
-        },
+        items: {
+            type: Array,
+            default: () => []
+        }
     },
 }

@@ -6,15 +6,12 @@
     format="DD-MMM-YY HH:mm:ss"
     class="d-flex justify-center"
     @input="
-      updateCaseData({
-        id: caseID,
-        row: caseRow,
-        header: caseHeader,
-        data:
-          $event !== null
-            ? $event.toJSON()
-            : new Date('2021-01-01T00:00:00.000').toJSON(),
-      })
+      $emit(
+        'updateData',
+        $event !== null
+          ? $event.toJSON()
+          : new Date('2021-01-01T00:00:00.000').toJSON()
+      )
     "
   >
   </date-picker>
@@ -45,7 +42,6 @@
 <script>
 import DatePicker from 'vue2-datepicker'
 import 'vue2-datepicker/index.css'
-import { mapActions } from 'vuex'
 import ColumnProps from '~/mixins/ColumnProps.js'
 
 export default {
@@ -55,9 +51,6 @@ export default {
     getDate(dateString) {
       return new Date(dateString)
     },
-    ...mapActions({
-      updateCaseData: 'cases/updateCaseData',
-    }),
   },
 }
 </script>

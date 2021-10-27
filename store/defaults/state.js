@@ -3,35 +3,47 @@ export default () => ({
         {
             text: 'Timestamp',
             type: 'DateTime',
-            align: 'center',
+            align: 'start',
             value: 'timestamp',
             width: '150px',
-            export: true
+            export: true,
+            sortable: true
         },
         {
             text: 'Device',
             type: 'List',
             value: 'device',
             width: '13%',
-            export: true
+            export: true,
+            align: 'center',
+            sortable: true
         },
         {
             text: 'Objective',
             type: 'Text',
             value: 'objective',
-            export: true
+            export: true,
+            width: undefined,
+            align: 'center',
+            sortable: true
         },
         {
             text: 'Command',
             type: 'Text',
             value: 'command',
-            export: true
+            export: true,
+            width: undefined,
+            align: 'center',
+            sortable: true
         },
         {
             text: 'Results',
             type: 'Text',
             value: 'results',
-            export: true
+            export: true,
+            width: undefined,
+            align: 'center',
+            sortable: true
         },
         {
             text: 'Screenshots',
@@ -40,7 +52,7 @@ export default () => ({
             sortable: false,
             value: 'screenshots',
             width: '120px',
-            export: true
+            export: true,
         },
         {
             text: 'Actions',

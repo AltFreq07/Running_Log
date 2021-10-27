@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import LogTable from '../../components/Table/LogTable.vue'
-import NavMenu from '../../components/Toolbar/NavigationDrawer/NavMenu.vue'
+import NavMenu from '../../components/NavigationDrawer/NavMenu.vue'
 import PagePreload from '@/components/Loader/PagePreload.vue'
 export default {
   components: { LogTable, NavMenu, PagePreload },
@@ -34,6 +34,9 @@ export default {
     pasteEvent(e) {
       this.$refs.dataTable.pasteEvent(e)
     },
+    ...mapActions({
+      setSelectedCase: 'cases/setSelectedCase',
+    }),
   },
   computed: {
     ...mapGetters({

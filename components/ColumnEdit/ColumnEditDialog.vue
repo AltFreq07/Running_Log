@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" max-width="80%" max-height="80%">
     <v-card>
       <v-card-title class="text-h5"> Edit Table Columns </v-card-title>
-      <column-edit-table :case-id="caseId" />
+      <column-edit-table :case-data="caseData" />
       <v-card-actions>
         <v-spacer />
 
@@ -14,13 +14,11 @@
 
 <script>
 import ColumnEditTable from './ColumnEditTable.vue'
+import CaseDataProp from '@/mixins/CaseDataProp.js'
+
 export default {
-  props: {
-    caseId: {
-      type: String,
-      default: '',
-    },
-  },
+  mixins: [CaseDataProp],
+
   components: { ColumnEditTable },
   data() {
     return {

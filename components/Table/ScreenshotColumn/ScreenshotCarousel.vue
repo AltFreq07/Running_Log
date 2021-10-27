@@ -17,13 +17,15 @@
             >
               <img :src="image" class="imageFit" />
               <delete-button
-                :index="i"
                 :array="array"
-                @click="activateControls()"
-                @closeDialoge="dialog = false"
-                :caseID="caseID"
-                :caseRow="caseRow"
-                :caseHeader="caseHeader"
+                @click="
+                  if (array.length === 1) {
+                    dialog = false
+                  } else {
+                    activateControls()
+                  }
+                  $emit('removeArrayData', i)
+                "
               />
             </v-row>
           </v-container>

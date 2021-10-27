@@ -1,20 +1,15 @@
 <template>
   <v-combobox
     :value="value"
-    :items="getListItems(caseID, caseHeader)"
+    :items="items"
     :search-input.sync="search"
     dense
     persistent-hint
     flat
     class="text-body-2 ma-0 pa-0"
     @input="
-      updateCaseData({
-        id: caseID,
-        row: caseRow,
-        header: caseHeader,
-        data: $event,
-      })
-      addListItem({ id: caseID, header: caseHeader, data: $event })
+      $emit('updateData', $event)
+      $emit('addListItem', $event)
     "
   >
     <template v-slot:item="{ item }">
@@ -40,7 +35,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
 import ColumnProps from '~/mixins/ColumnProps.js'
 
 export default {
@@ -49,17 +43,6 @@ export default {
     return {
       search: null,
     }
-  },
-  computed: {
-    ...mapGetters({
-      getListItems: 'cases/getListItems',
-    }),
-  },
-  methods: {
-    ...mapActions({
-      addListItem: 'cases/addListItem',
-      updateCaseData: 'cases/updateCaseData',
-    }),
   },
 }
 </script>

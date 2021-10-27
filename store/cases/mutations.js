@@ -36,5 +36,10 @@ export default {
         else if (!state.cases.find(item => item.id === data.id).lists[data.header].includes(data.data)) {
             state.cases.find(item => item.id === data.id).lists[data.header].push(data.data)
         }
+    },
+    deleteColumn: (state, data) => {
+        console.log(state.cases.find(item => item.id === data.id).columns)
+        state.cases.find(item => item.id === data.id).columns.splice(data.index, 1)
+        console.log(state.cases.find(item => item.id === data.id).columns)
     }
 }

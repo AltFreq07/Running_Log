@@ -1,4 +1,3 @@
-import { mapActions } from 'vuex'
 export default {
     methods: {
         pasteEvent(e) {
@@ -7,12 +6,7 @@ export default {
                     if (item.type.includes('image')) {
                         const blob = await new Response(item.getAsFile()).blob()
                         const base64 = await this.toBase64(blob)
-                        this.pushCaseData({
-                            id: this.caseID,
-                            row: this.caseRow,
-                            header: this.caseHeader,
-                            data: base64,
-                        })
+                        this.$emit('pushCaseData', base64)
                     }
                 })(e.clipboardData.items[i])
             }
@@ -25,8 +19,5 @@ export default {
                 reader.onerror = (error) => reject(error)
             })
         },
-        ...mapActions({
-            pushCaseData: 'cases/addArrayData',
-        }),
     },
 }

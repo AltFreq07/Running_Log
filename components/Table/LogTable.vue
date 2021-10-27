@@ -22,19 +22,60 @@
         @mouseleave="hoveredRow = -1"
       >
         <td
-          v-for="(value, name, i) in item"
+          v-for="(value, i) in caseData.columns"
           :key="i"
-          @click="focusInput(name, index, caseData.columns[i].type)"
+          @click="focusInput(value.value, index, value.type)"
         >
           <component
             class="d-flex justify-center"
-            :is="getColumnComponent(caseData.columns[i].type, name)"
-            :array="typeof value === 'object' ? value : []"
-            :value="typeof value === 'string' ? value : ''"
+            :is="getColumnComponent(value.type)"
+            :array="
+              typeof item[value.value] === 'object' ? item[value.value] : []
+            "
+            :value="
+              typeof item[value.value] === 'string' ? item[value.value] : ''
+            "
+            :items="
+              caseData.columns[i].type === 'List'
+                ? getListItems(caseData.id, value.text)
+                : []
+            "
             :caseID="caseData.id"
             :caseRow="index"
-            :caseHeader="name"
-            :ref="name + '-' + index"
+            :caseHeader="value.value"
+            :ref="value.value + '-' + index"
+            @deleteClicked="deleteCaseData({ id: caseData.id, index: index })"
+            @updateData="
+              updateCaseData({
+                id: caseData.id,
+                row: index,
+                header: value.value,
+                data: $event,
+              })
+            "
+            @addListItem="
+              addListItem({
+                id: caseData.id,
+                header: value.value,
+                data: $event,
+              })
+            "
+            @removeArrayData="
+              removeArrayData({
+                id: caseData.id,
+                row: index,
+                header: value.value,
+                data: $event,
+              })
+            "
+            @pushCaseData="
+              pushCaseData({
+                id: caseData.id,
+                row: index,
+                header: value.value,
+                data: $event,
+              })
+            "
           />
         </td>
       </tr>
@@ -44,6 +85,7 @@
 
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import LogTableFooter from './LogTableFooter.vue'
 import GetColumnComponent from '@/mixins/GetColumnComponent.js'
 
@@ -61,21 +103,38 @@ export default {
   data() {
     return {
       hoveredRow: -1,
-      screenshots: false,
-      screenshotsHeader: '',
     }
   },
   methods: {
     focusInput(name, index, type) {
       if (type === 'Text') this.$refs[name + '-' + index][0].$refs.input.focus()
     },
+    getScreenshotHeader() {
+      for (const col of this.caseData.columns) {
+        if (col.type === 'Screenshots') {
+          return col.value
+        }
+      }
+      return null
+    },
     pasteEvent(e) {
-      if (this.screenshots && this.hoveredRow >= 0) {
-        this.$refs[
-          this.screenshotsHeader + '-' + this.hoveredRow
-        ][0].pasteEvent(e)
+      const header = this.getScreenshotHeader()
+      if (header) {
+        this.$refs[header + '-' + this.hoveredRow][0].pasteEvent(e)
       }
     },
+    ...mapActions({
+      deleteCaseData: 'cases/deleteCaseData',
+      updateCaseData: 'cases/updateCaseData',
+      addListItem: 'cases/addListItem',
+      removeArrayData: 'cases/removeArrayData',
+      pushCaseData: 'cases/addArrayData',
+    }),
+  },
+  computed: {
+    ...mapGetters({
+      getListItems: 'cases/getListItems',
+    }),
   },
 }
 </script>

@@ -3,6 +3,7 @@ import DateTimeColumn from '@/components/Table/DateTimeColumn.vue'
 import ListColumn from '@/components/Table/ListColumn.vue'
 import TextColumn from '@/components/Table/TextColumn.vue'
 import ScreenshotColumn from '@/components/Table/ScreenshotColumn/ScreenshotColumn.vue'
+import CheckboxColumn from '@/components/Table/CheckboxColumn.vue'
 
 export default {
     components: {
@@ -11,6 +12,7 @@ export default {
         ActionsColumn,
         ListColumn,
         ScreenshotColumn,
+        CheckboxColumn
     },
     methods: {
         getColumnComponent(type, header) {
@@ -27,9 +29,10 @@ export default {
                 case 'List': {
                     return ListColumn
                 }
+                case 'Checkbox': {
+                    return CheckboxColumn
+                }
                 case 'Screenshots': {
-                    this.screenshots = true
-                    this.screenshotsHeader = header
                     return ScreenshotColumn
                 }
                 default: {
