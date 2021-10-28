@@ -2,7 +2,6 @@
   <v-combobox
     :value="value"
     :items="items"
-    :search-input.sync="search"
     dense
     persistent-hint
     flat
@@ -15,13 +14,18 @@
     <template v-slot:item="{ item }">
       {{ item }}
       <v-spacer />
-      <v-list-item-action @click.stop>
+      <v-list-item-action
+        v-if="showAdd"
+        @click="
+          $emit('removeListItem', { index: items.indexOf(item), data: item })
+        "
+      >
         <v-btn icon>
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-list-item-action></template
     >
-    <template v-slot:no-data>
+    <template v-slot:no-data v-if="showAdd">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>
@@ -39,6 +43,12 @@ import ColumnProps from '~/mixins/ColumnProps.js'
 
 export default {
   mixins: [ColumnProps],
+  props: {
+    showAdd: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
       search: null,

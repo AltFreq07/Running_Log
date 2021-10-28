@@ -37,7 +37,7 @@
             "
             :items="
               caseData.columns[i].type === 'List'
-                ? getListItems(caseData.id, value.text)
+                ? getListItems(caseData.id, value.value)
                 : []
             "
             :caseID="caseData.id"
@@ -58,6 +58,14 @@
                 id: caseData.id,
                 header: value.value,
                 data: $event,
+              })
+            "
+            @removeListItem="
+              removeListItem({
+                id: caseData.id,
+                header: value.value,
+                index: $event.index,
+                data: $event.data,
               })
             "
             @removeArrayData="
@@ -127,6 +135,7 @@ export default {
       deleteCaseData: 'cases/deleteCaseData',
       updateCaseData: 'cases/updateCaseData',
       addListItem: 'cases/addListItem',
+      removeListItem: 'cases/removeListItem',
       removeArrayData: 'cases/removeArrayData',
       pushCaseData: 'cases/addArrayData',
     }),

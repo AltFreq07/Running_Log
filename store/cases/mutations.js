@@ -1,5 +1,7 @@
 
 import Vue from 'vue'
+
+
 export default {
     createCase: (state, data) => {
         state.cases.push(data)
@@ -37,9 +39,42 @@ export default {
             state.cases.find(item => item.id === data.id).lists[data.header].push(data.data)
         }
     },
+    removeListItem: (state, data) => {
+        state.cases.find(item => item.id === data.id).lists[data.header].splice(data.index, 1)
+        for (const col of state.cases.find(item => item.id === data.id).data) {
+            if (col[data.header] === data.data)
+                col[data.header] = ''
+        }
+    },
     deleteColumn: (state, data) => {
-        console.log(state.cases.find(item => item.id === data.id).columns)
         state.cases.find(item => item.id === data.id).columns.splice(data.index, 1)
-        console.log(state.cases.find(item => item.id === data.id).columns)
+    },
+    addColumn: (state, data) => {
+        state.cases.find(item => item.id === data.id).columns.push(data.data)
+    },
+    deleteColumnData: (state, data) => {
+        for (const obj of state.cases.find(item => item.id === data.id).data) {
+            delete obj[data.header]
+        }
+    },
+    deleteListData: (state, data) => {
+        delete state.cases.find(item => item.id === data.id).lists[data.header]
+    },
+    updateColumnData: (state, data) => {
+        state.cases.find(item => item.id === data.id).columns[data.row][data.header] = data.data
+    },
+    moveColumns: (state, data) => {
+        state.cases.find(item => item.id === data.id).columns = move(state.cases.find(item => item.id === data.id).columns, data.from, data.to)
     }
 }
+
+function move(arr, oldIndex, newIndex) {
+    if (newIndex >= arr.length) {
+        let k = newIndex - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0]);
+    return arr; // for testing
+};

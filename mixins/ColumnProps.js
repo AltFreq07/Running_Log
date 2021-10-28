@@ -11,6 +11,10 @@ export default {
         items: {
             type: Array,
             default: () => []
+        },
+        bool: {
+            type: Boolean,
+            default: false
         }
     },
 }

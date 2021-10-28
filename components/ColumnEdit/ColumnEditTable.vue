@@ -6,12 +6,39 @@
     disable-pagination
     :hide-default-footer="true"
   >
+    <template #foot>
+      <tr>
+        <td :colspan="headers.length">
+          <v-divider width="100%" />
+          <v-card class="pa-0 ma-0" height="100%" width="100%">
+            <v-row class="py-2 ma-0" justify="center">
+              <v-btn
+                elevation="2"
+                icon
+                large
+                @click="
+                  addColumn({ id: caseData.id, data: { ...defaultColumn } })
+                "
+                ><v-icon>mdi-plus</v-icon></v-btn
+              >
+            </v-row>
+          </v-card>
+        </td>
+      </tr>
+    </template>
     <template #item="{ item, index }">
-      <tr :id="'row-' + index">
+      <tr
+        :id="'row-' + index"
+        @dragstart="draggedElement = index"
+        @dragover="$event.preventDefault()"
+        @dragenter="$event.preventDefault()"
+        @drop="
+          moveColumns({ id: caseData.id, from: draggedElement, to: index })
+          draggedElement = -1
+        "
+        draggable
+      >
         <td v-for="(value, i) in headers" :key="i">
-          <!-- {{ value.value }} || -->
-          <!-- {{ item[value.value] }} ||
-          {{ value.text }} -->
           <component
             class="d-flex justify-center"
             :is="getColumnComponent(value.type)"
@@ -22,36 +49,24 @@
               typeof item[value.value] === 'string' ? item[value.value] : ''
             "
             :items="headers[i].type === 'List' ? getListItems(value.text) : []"
+            :bool="
+              typeof item[value.value] === 'boolean' ? item[value.value] : ''
+            "
             :caseID="caseData.id"
             :caseRow="index"
             :caseHeader="value.value"
+            :showAdd="false"
             :ref="value.value + '-' + index"
-            @deleteClicked="deleteColumn({ id: caseData.id, index: index })"
+            @deleteClicked="
+              deleteColumn({
+                id: caseData.id,
+                index: index,
+                header: item.value,
+                type: item.type,
+              })
+            "
             @updateData="
-              updateCaseData({
-                id: caseData.id,
-                row: index,
-                header: value.value,
-                data: $event,
-              })
-            "
-            @addListItem="
-              addListItem({
-                id: caseData.id,
-                header: value.value,
-                data: $event,
-              })
-            "
-            @removeArrayData="
-              removeArrayData({
-                id: caseData.id,
-                row: index,
-                header: value.value,
-                data: $event,
-              })
-            "
-            @pushCaseData="
-              pushCaseData({
+              updateColumnData({
                 id: caseData.id,
                 row: index,
                 header: value.value,
@@ -59,6 +74,9 @@
               })
             "
           />
+        </td>
+        <td>
+          <v-icon>mdi-drag-vertical</v-icon>
         </td>
       </tr>
     </template>
@@ -75,6 +93,7 @@ export default {
   data() {
     return {
       hoveredRow: -1,
+      draggedElement: -1,
       typeList: [
         'Text',
         'DateTime',
@@ -84,6 +103,15 @@ export default {
         'Screenshots',
       ],
       alignList: ['start', 'center', 'end'],
+      defaultColumn: {
+        align: '',
+        export: true,
+        sortable: true,
+        text: '',
+        type: '',
+        value: '',
+        width: '',
+      },
       headers: [
         {
           text: 'Name',
@@ -98,6 +126,13 @@ export default {
           sortable: true,
           value: 'type',
           type: 'List',
+        },
+        {
+          text: 'Value',
+          align: 'start',
+          sortable: true,
+          value: 'value',
+          type: 'Text',
         },
         {
           text: 'Sortable',
@@ -150,6 +185,9 @@ export default {
     },
     ...mapActions({
       deleteColumn: 'cases/deleteColumn',
+      addColumn: 'cases/addColumn',
+      updateColumnData: 'cases/updateColumnData',
+      moveColumns: 'cases/moveColumns',
     }),
   },
   computed: {
