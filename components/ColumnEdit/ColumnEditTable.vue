@@ -8,7 +8,7 @@
   >
     <template #foot>
       <tr>
-        <td :colspan="headers.length">
+        <td :colspan="headers.length + 1">
           <v-divider width="100%" />
           <v-card class="pa-0 ma-0" height="100%" width="100%">
             <v-row class="py-2 ma-0" justify="center">
