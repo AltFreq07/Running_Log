@@ -10,7 +10,7 @@ export default {
     deleteCaseData: (context, data) => { context.commit("deleteCaseData", data) },
     addListItem: (context, data) => { context.commit("addListItem", data) },
     removeListItem: (context, data) => { context.commit("removeListItem", data) },
-    deleteColumn: (context, data) => { context.commit("deleteColumn", data); context.dispatch('deleteColumnData', data); console.log(data.type); if (data.type === "List") context.dispatch('deleteListData', data) },
+    deleteColumn: (context, data) => { context.commit("deleteColumn", data); context.dispatch('deleteColumnData', data); if (data.type === "List") context.dispatch('deleteListData', data) },
     addColumn: (context, data) => { context.commit("addColumn", data) },
     deleteColumnData: (context, data) => { context.commit("deleteColumnData", data) },
     deleteListData: (context, data) => { context.commit("deleteListData", data) },
