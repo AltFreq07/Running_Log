@@ -1,6 +1,6 @@
 <template>
   <v-combobox
-    :label="items.length > 0 ? label : 'No items available'"
+    :label="items.length > 0 ? label : error"
     :readonly="items.length === 0"
     :disabled="items.length === 0"
     :error-messages="errorMessages"
@@ -38,6 +38,10 @@ export default {
     errorMessages: {
       type: String,
       default: '',
+    },
+    error: {
+      type: String,
+      default: 'No Items Available',
     },
   },
 }

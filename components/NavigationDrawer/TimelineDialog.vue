@@ -9,6 +9,7 @@
           <v-container>
             <v-row>
               <v-col cols="12" sm="12" md="12">
+                <label>Data source:</label>
                 <timeline-dialog-drop-down
                   :items="dateTimeColums"
                   v-model="datetimeSource"
@@ -21,6 +22,7 @@
                 />
               </v-col>
               <v-col cols="12" sm="12" md="12">
+                <label>Text source:</label>
                 <timeline-dialog-drop-down
                   :items="textColumns"
                   v-model="textSource"
@@ -33,10 +35,12 @@
                 />
               </v-col>
               <v-col cols="12" sm="12" md="12">
+                <label>Important marker source:</label>
                 <timeline-dialog-drop-down
                   :items="checkboxColumns"
                   v-model="importantSource"
                   label="Select Important Checkbox Source"
+                  error="No checkbox columns on table"
                 />
               </v-col>
               <v-col cols="12" sm="12" md="12">
