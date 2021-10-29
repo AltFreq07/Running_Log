@@ -110,45 +110,46 @@ export default {
     },
   },
   mounted() {
-    if (this.caseID === undefined) {
-      this.$router.push('/')
-    }
     setTimeout(
       function () {
-        this.loading = false
-        if (this.type === 'Image') {
-          this.$nextTick(
-            function () {
-              html2canvas(document.querySelector('body')).then((canvas) => {
-                this.saveAs(canvas.toDataURL(), this.getTitle + '.png')
-                this.goBack()
-              })
-            }.bind(this)
-          )
-        } else if (this.type === 'PDF')
-          this.$nextTick(
-            function () {
-              html2canvas(document.querySelector('body')).then((canvas) => {
-                let width = canvas.width
-                let height = canvas.height
-                let pdf
-                /* eslint-disable */
-                if (width > height) {
-                  pdf = new jsPDF('l', 'px', [width, height])
-                } else {
-                  pdf = new jsPDF('p', 'px', [height, width])
-                }
-                /* eslint-enable */
-                width = pdf.internal.pageSize.getWidth()
-                height = pdf.internal.pageSize.getHeight()
-                pdf.addImage(canvas, 'PNG', 0, 0, width, height)
+        if (this.caseID === undefined) {
+          this.$router.push('/')
+        } else {
+          this.loading = false
+          if (this.type === 'Image') {
+            this.$nextTick(
+              function () {
+                html2canvas(document.querySelector('body')).then((canvas) => {
+                  this.saveAs(canvas.toDataURL(), this.getTitle + '.png')
+                  this.goBack()
+                })
+              }.bind(this)
+            )
+          } else if (this.type === 'PDF')
+            this.$nextTick(
+              function () {
+                html2canvas(document.querySelector('body')).then((canvas) => {
+                  let width = canvas.width
+                  let height = canvas.height
+                  let pdf
+                  /* eslint-disable */
+                  if (width > height) {
+                    pdf = new jsPDF('l', 'px', [width, height])
+                  } else {
+                    pdf = new jsPDF('p', 'px', [height, width])
+                  }
+                  /* eslint-enable */
+                  width = pdf.internal.pageSize.getWidth()
+                  height = pdf.internal.pageSize.getHeight()
+                  pdf.addImage(canvas, 'PNG', 0, 0, width, height)
 
-                pdf.save(this.getTitle() + '.pdf')
+                  pdf.save(this.getTitle + '.pdf')
 
-                this.goBack()
-              })
-            }.bind(this)
-          )
+                  this.goBack()
+                })
+              }.bind(this)
+            )
+        }
       }.bind(this),
       300
     )
