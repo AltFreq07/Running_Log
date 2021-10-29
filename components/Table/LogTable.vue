@@ -40,6 +40,9 @@
                 ? getListItems(caseData.id, value.value)
                 : []
             "
+            :bool="
+              typeof item[value.value] === 'boolean' ? item[value.value] : ''
+            "
             :caseID="caseData.id"
             :caseRow="index"
             :caseHeader="value.value"

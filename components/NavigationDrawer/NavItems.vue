@@ -3,6 +3,7 @@
     <nav-new-case-item />
     <nav-load-item />
     <nav-export-item :case-data="caseData" />
+    <nav-timeline-item :case-data="caseData" />
   </v-list>
 </template>
 
@@ -10,8 +11,9 @@
 import NavNewCaseItem from './NavNewCaseItem.vue'
 import NavLoadItem from './NavLoadItem.vue'
 import NavExportItem from './NavExportItem.vue'
+import NavTimelineItem from './NavTimelineItem.vue'
 export default {
-  components: { NavNewCaseItem, NavLoadItem, NavExportItem },
+  components: { NavNewCaseItem, NavLoadItem, NavExportItem, NavTimelineItem },
   props: {
     caseData: {
       type: Object,

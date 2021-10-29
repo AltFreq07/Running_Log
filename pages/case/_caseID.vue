@@ -44,7 +44,11 @@ export default {
     }),
   },
   mounted() {
-    this.caseData = this.getCase(this.caseID)
+    if (this.caseID === undefined) {
+      this.$router.push('/')
+    } else {
+      this.caseData = this.getCase(this.caseID)
+    }
     setTimeout(
       function () {
         this.loading = false
