@@ -129,10 +129,6 @@ export default {
       }
     },
   },
-  mounted() {
-    this.datetimeSource = this.dateTimeColums[0]
-    this.textSource = this.textColumns[0]
-  },
   computed: {
     dateTimeColums() {
       return this.caseData.columns
