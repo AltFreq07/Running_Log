@@ -143,7 +143,7 @@ export default {
                 height = pdf.internal.pageSize.getHeight()
                 pdf.addImage(canvas, 'PNG', 0, 0, width, height)
 
-                pdf.save('download.pdf')
+                pdf.save(this.getTitle() + '.pdf')
 
                 this.goBack()
               })
