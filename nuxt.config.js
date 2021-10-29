@@ -43,6 +43,8 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+
+    'nuxt-compress'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -57,6 +59,17 @@ export default {
     //     localStorage: ['settings']
     //   }
     // ],
+    ['nuxt-compress',
+      {
+        gzip: {
+          threshold: 8192,
+        },
+        brotli: {
+          threshold: 8192,
+        },
+      },
+    ],
+
   ],
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
