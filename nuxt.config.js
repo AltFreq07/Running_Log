@@ -31,7 +31,6 @@ export default {
   plugins: [
     { src: '~/plugins/vuex-load', ssr: false },
     { src: '~/plugins/vuex-persist', ssr: false },
-    { src: '@/plugins/vue-html2pdf', ssr: false },
     { src: '@/plugins/vuelidate', ssr: false }
   ],
 
