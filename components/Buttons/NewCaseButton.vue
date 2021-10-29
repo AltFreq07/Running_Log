@@ -1,18 +1,20 @@
 <template>
-  <button-icon
-    text="New"
-    icon="mdi-briefcase-plus"
-    color="primary"
-    @click="newCase"
-  />
+  <div>
+    <button-icon
+      text="New"
+      icon="mdi-briefcase-plus"
+      color="primary"
+      @click="$refs.templates.dialog = true"
+    />
+    <template-dialog ref="templates" />
+  </div>
 </template>
 
 <script>
 import ButtonIcon from './ButtonIcon.vue'
-import NewCase from '@/mixins/NewCase'
+import TemplateDialog from './TemplateDialog.vue'
 
 export default {
-  mixins: [NewCase],
-  components: { ButtonIcon },
+  components: { ButtonIcon, TemplateDialog },
 }
 </script>

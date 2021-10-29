@@ -1,17 +1,12 @@
 import { v4 as uuidv4 } from 'uuid'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
-    computed: {
-        ...mapGetters({
-            defaultColumns: 'defaults/getDefaultColumns',
-        }),
-    },
     methods: {
-        newCase() {
+        newCase(columns) {
             const uuid = uuidv4()
             this.createCase({
                 id: uuid,
-                columns: JSON.parse(JSON.stringify(this.defaultColumns)),
+                columns: JSON.parse(JSON.stringify(columns)),
                 title: '',
                 category: '',
                 lists: {},
