@@ -1,8 +1,11 @@
 <template>
   <v-simple-checkbox
     :ripple="false"
-    :value="bool"
-    @click="$emit('updateData', !bool)"
+    :value="realBool"
+    @click="
+      $emit('updateData', !realBool)
+      realBool = !realBool
+    "
   ></v-simple-checkbox>
 </template>
 
@@ -10,5 +13,13 @@
 import ColumnProps from '~/mixins/ColumnProps.js'
 export default {
   mixins: [ColumnProps],
+  data() {
+    return {
+      realBool: false,
+    }
+  },
+  mounted() {
+    this.realBool = this.bool
+  },
 }
 </script>
