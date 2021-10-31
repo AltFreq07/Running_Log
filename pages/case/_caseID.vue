@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      caseID: '',
-      caseData: {},
+      caseID: undefined,
+      caseData: undefined,
       loading: true,
     }
   },
@@ -44,10 +44,9 @@ export default {
     }),
   },
   mounted() {
-    if (this.caseID === undefined) {
+    this.caseData = this.getCase(this.caseID)
+    if (this.caseData === undefined) {
       this.$router.push('/')
-    } else {
-      this.caseData = this.getCase(this.caseID)
     }
     setTimeout(
       function () {

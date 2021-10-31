@@ -15,5 +15,6 @@ export default {
     deleteColumnData: (context, data) => { context.commit("deleteColumnData", data) },
     deleteListData: (context, data) => { context.commit("deleteListData", data) },
     updateColumnData: (context, data) => { context.commit("updateColumnData", data) },
-    moveColumns: (context, data) => { context.commit("moveColumns", data) }
+    moveColumns: (context, data) => { context.commit("moveColumns", data) },
+    importCase: (context, data) => { context.commit("importCase", data) },
 }

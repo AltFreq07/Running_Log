@@ -68,6 +68,9 @@ export default {
     },
     moveColumns: (state, data) => {
         state.cases.find(item => item.id === data.id).columns = move(state.cases.find(item => item.id === data.id).columns, data.from, data.to)
+    },
+    importCase: (state, data) => {
+        state.cases.push(data)
     }
 }
 
