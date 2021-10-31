@@ -11,7 +11,7 @@
 import NavNewCaseItem from './NavNewCaseItem.vue'
 import NavLoadItem from './NavLoadItem.vue'
 import NavExportItem from './NavExportItem.vue'
-import NavTimelineItem from './NavTimelineItem.vue'
+import NavTimelineItem from './Timeline/NavTimelineItem.vue'
 export default {
   components: { NavNewCaseItem, NavLoadItem, NavExportItem, NavTimelineItem },
   props: {

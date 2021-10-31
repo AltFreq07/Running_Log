@@ -9,7 +9,7 @@
 </template>.
 
 <script>
-import NavTitle from './NavTitle.vue'
+import NavTitle from './Timeline/NavTitle.vue'
 import NavItems from './NavItems.vue'
 import NavOptions from './Options/NavOptions.vue'
 import CaseDataProp from '@/mixins/CaseDataProp.js'
