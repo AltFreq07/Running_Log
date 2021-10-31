@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panels style="width: fit-content">
+  <v-expansion-panels>
     <v-expansion-panel v-for="(item, value, i) in getCategories" :key="i">
       <v-expansion-panel-header>
         {{ value }}

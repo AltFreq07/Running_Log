@@ -1,38 +1,20 @@
 <template>
-  <v-list-group prepend-icon="mdi-briefcase-eye">
-    <template v-slot:activator>
+  <v-list-item link @click="$refs.loadDialog.dialog = true">
+    <v-list-item-icon>
+      <v-icon>mdi-briefcase-eye</v-icon>
+    </v-list-item-icon>
+
+    <v-list-item-content>
       <v-list-item-title>Load</v-list-item-title>
-    </template>
-
-    <v-list-group
-      no-action
-      sub-group
-      v-for="(item, value, i) in getCategories"
-      :key="i"
-    >
-      <template v-slot:activator>
-        <v-list-item-content>
-          <v-list-item-title>{{ value }}</v-list-item-title>
-        </v-list-item-content>
-      </template>
-
-      <v-list-item
-        v-for="(data, index) in item"
-        :key="index"
-        link
-        :to="'/case/' + data.id"
-      >
-        <v-list-item-title>{{
-          data.title === '' ? data.id : data.title
-        }}</v-list-item-title>
-      </v-list-item>
-    </v-list-group>
-  </v-list-group>
+    </v-list-item-content>
+    <load-dialog ref="loadDialog" />
+  </v-list-item>
 </template>
 
 <script>
-import GetCategories from '@/mixins/GetCategories'
+import LoadDialog from '../Buttons/LoadDialog.vue'
+
 export default {
-  mixins: [GetCategories],
+  components: { LoadDialog },
 }
 </script>
