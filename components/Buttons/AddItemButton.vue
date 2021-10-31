@@ -25,8 +25,6 @@ export default {
     getDefaultColData() {
       const def = {}
       for (const col of this.caseData.columns) {
-        console.log(col.type)
-        console.log(col.type === 'DateTime')
         if (col.type === 'DateTime') {
           const now = new Date()
           now.setHours(now.getHours() + (now.getTimezoneOffset() / 60) * -1)
