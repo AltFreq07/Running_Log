@@ -31,11 +31,6 @@ export default {
     { src: '@/plugins/vuelidate', ssr: false }
   ],
 
-  pwa: {
-    icon: {
-      fileName: 'app-icon.png',
-    },
-  },
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -78,7 +73,10 @@ export default {
   pwa: {
     manifest: {
       lang: 'en'
-    }
+    },
+    icon: {
+      fileName: 'app-icon.png',
+    },
   },
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
