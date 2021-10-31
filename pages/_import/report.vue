@@ -14,17 +14,26 @@ import { mapGetters } from 'vuex'
 import ToolbarExport from '../../components/Export/Toolbar/ToolbarExport.vue'
 import LogTableExport from '../../components/Export/Table/LogTableExport.vue'
 import PagePreload from '@/components/Loader/PagePreload.vue'
+import * as ExportFunctions from '@/services/ExportService.js'
 
 export default {
   components: { LogTableExport, ToolbarExport, PagePreload },
-  asyncData({ params, req }) {
-    const importType = params.import
-    const asyncDone = true
-    return { asyncDone, importType, caseData: req.body }
+  async fetch() {
+    try {
+      this.caseData = await ExportFunctions.getDataFromHTML(
+        this.$route.query.data
+      )
+      this.asyncDone = true
+    } catch (e) {
+      alert('Error loading data, please use the original html file')
+
+      this.$router.push('/')
+    }
   },
   data() {
     return {
       loading: true,
+      asyncDone: false,
     }
   },
   computed: {
@@ -45,12 +54,6 @@ export default {
     },
   },
   mounted() {
-    if (!this.dataExists) {
-      alert(
-        'Please use the original HTML file provided to load the requested data.'
-      )
-      window.close()
-    }
     setTimeout(
       function () {
         this.loading = false

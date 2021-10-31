@@ -35,12 +35,16 @@
         :key="index"
       >
         <v-row justify="space-between">
-          <v-col cols="7"
-            ><span
-              v-for="(line, index) in item.data.toString().split('\n')"
+          <v-col cols="7">
+            {{ item.data }}
+            <span
+              v-for="(line, index) in item.data !== undefined
+                ? item.data.toString().split('\n')
+                : ''"
               :key="index"
-              >{{ line }}<br /> </span
-          ></v-col>
+              >{{ line }}<br />
+            </span>
+          </v-col>
           <v-col class="text-right" cols="5">
             {{ new Date(item.date).toString() }}
           </v-col>

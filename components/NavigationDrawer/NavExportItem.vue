@@ -56,11 +56,11 @@ export default {
         }, 0)
       }
     },
-    getExportData(string) {
+    async getExportData(string) {
       switch (string) {
         case 'HTML':
           this.exportData(
-            this.getHTMLData(),
+            await this.getHTMLData(),
             this.caseData.title === '' ? this.caseData.id : this.caseData.title,
             'html',
             'text/html'
