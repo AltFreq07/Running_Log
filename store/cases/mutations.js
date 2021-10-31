@@ -22,6 +22,9 @@ export default {
         state.cases.find(item => item.id === data.id).data[data.row][data.header] = data.data
     },
     addArrayData: (state, data) => {
+        if (state.cases.find(item => item.id === data.id).data[data.row][data.header] === undefined) {
+            Vue.set(state.cases.find(item => item.id === data.id).data[data.row], data.header, [])
+        }
         state.cases.find(item => item.id === data.id).data[data.row][data.header].push(data.data)
     },
     removeArrayData: (state, data) => {
