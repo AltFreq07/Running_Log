@@ -36,7 +36,6 @@
       >
         <v-row justify="space-between">
           <v-col cols="7">
-            {{ item.data }}
             <span
               v-for="(line, index) in item.data !== undefined
                 ? item.data.toString().split('\n')
