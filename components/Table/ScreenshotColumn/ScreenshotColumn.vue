@@ -20,11 +20,21 @@
 <script>
 import ScreenshotSnackbar from './ScreenshotSnackbar.vue'
 import ScreenshotCarousel from './ScreenshotCarousel.vue'
+import * as PasteService from '@/services/PasteService.js'
 import GalleryIcon from '@/mixins/GalleryIcon.js'
 import ColumnProps from '~/mixins/ColumnProps.js'
-import PasteMethods from '@/mixins/PasteMethods.js'
 export default {
   components: { ScreenshotSnackbar, ScreenshotCarousel },
-  mixins: [ColumnProps, GalleryIcon, PasteMethods],
+  mixins: [ColumnProps, GalleryIcon],
+  methods: {
+    pasteEvent(e) {
+      PasteService.GetImageBase64(
+        e,
+        function (b64) {
+          this.$emit('pushCaseData', b64)
+        }.bind(this)
+      )
+    },
+  },
 }
 </script>

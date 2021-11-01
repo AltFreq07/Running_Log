@@ -11,9 +11,8 @@
 import GalleryCarousel from './GalleryCarousel.vue'
 import GalleryIcon from '@/mixins/GalleryIcon.js'
 import ColumnProps from '~/mixins/ColumnProps.js'
-import PasteMethods from '@/mixins/PasteMethods.js'
 export default {
   components: { GalleryCarousel },
-  mixins: [ColumnProps, GalleryIcon, PasteMethods],
+  mixins: [ColumnProps, GalleryIcon],
 }
 </script>
