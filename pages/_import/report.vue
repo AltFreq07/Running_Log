@@ -21,8 +21,9 @@ export default {
   async fetch() {
     try {
       this.caseData = await ExportFunctions.getDataFromHTML(
-        this.$route.query.data
+        this.$route.hash.substring(1)
       )
+      console.log(this.caseData)
       this.asyncDone = true
     } catch (e) {
       alert('Error loading data, please use the original html file')

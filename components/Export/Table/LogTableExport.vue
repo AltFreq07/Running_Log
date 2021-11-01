@@ -1,6 +1,6 @@
 <template>
   <v-data-table
-    :headers="columns"
+    :headers="caseData.columns.filter((col) => col.export === true)"
     :items="caseData.data"
     class="elevation-1 mt-10"
     disable-pagination
@@ -14,11 +14,22 @@
 
     <template #item="{ item, index }">
       <tr :id="'row-' + index">
-        <td v-for="(value, name, i) in getFilteredItem(item)" :key="i">
+        <td
+          v-for="(value, i) in caseData.columns.filter(
+            (col) => col.export === true
+          )"
+          :key="i"
+        >
           <component
-            :is="getColumnComponent(caseData.columns[i].type)"
-            :array="typeof value === 'object' ? value : []"
-            :value="typeof value === 'string' ? value : ''"
+            :is="getColumnComponent(value.type)"
+            :array="
+              typeof item[value.value] === 'object' ? item[value.value] : []
+            "
+            :value="
+              typeof item[value.value] === 'string' ? item[value.value] : ''
+            "
+            :caseRow="index"
+            :caseHeader="value.value"
           />
         </td>
       </tr>
@@ -51,22 +62,6 @@ export default {
           return DisplayColumn
         }
       }
-    },
-    getFilteredItem(item) {
-      if (item === undefined) return []
-      const cItem = { ...item }
-      for (const rem of this.caseData.columns.filter(
-        (col) => col.export === false
-      )) {
-        delete cItem[rem.value]
-      }
-      return cItem
-    },
-  },
-  computed: {
-    columns() {
-      if (this.caseData.columns === undefined) return []
-      return this.caseData.columns.filter((col) => col.export === true)
     },
   },
 }

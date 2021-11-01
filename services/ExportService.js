@@ -40,7 +40,7 @@ export async function getHTMLData(protocol, host, caseData) {
 <head>
   <title>${caseData.title}</title>
   <script>
-      document.location = "${protocol}//${host}/unencrypted/report?data=${await getSafeB64String(caseData)}"
+      document.location = "${protocol}//${host}/unencrypted/report/#${await getSafeB64String(caseData)}"
   </script>
 </head>
 </html>

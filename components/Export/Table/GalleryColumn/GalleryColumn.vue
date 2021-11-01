@@ -1,26 +1,19 @@
 <template>
-  <div class="d-flex justify-center">
-    <v-btn
-      @click="
-        array.length > 0
-          ? ($refs['carousel-' + caseHeader + '-' + caseRow].dialog = true)
-          : ''
-      "
-      ><v-icon v-if="array.length > 0">{{ getIcon }}</v-icon></v-btn
+  <div>
+    <v-btn @click="array.length > 0 ? ($refs.carousel.dialog = true) : ''"
+      ><v-icon>{{ getIcon }}</v-icon></v-btn
     >
-    <gallery-carousel
-      :ref="'carousel-' + caseHeader + '-' + caseRow"
-      :array="array"
-    />
+    <gallery-carousel ref="carousel" :array="array" />
   </div>
 </template>
 
 <script>
 import GalleryCarousel from './GalleryCarousel.vue'
-
-import GalleryIcon from '~/mixins/GalleryIcon.js'
+import GalleryIcon from '@/mixins/GalleryIcon.js'
+import ColumnProps from '~/mixins/ColumnProps.js'
+import PasteMethods from '@/mixins/PasteMethods.js'
 export default {
   components: { GalleryCarousel },
-  mixins: [GalleryIcon],
+  mixins: [ColumnProps, GalleryIcon, PasteMethods],
 }
 </script>
