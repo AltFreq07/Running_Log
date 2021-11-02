@@ -7,12 +7,12 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - running_log',
-    title: 'running_log',
+    titleTemplate: '%s - Logger',
+    title: 'Logger',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Multi-purpose customisable logging tool.' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
