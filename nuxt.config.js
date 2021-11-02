@@ -22,6 +22,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/font.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -41,7 +42,7 @@ export default {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
 
-    'nuxt-compress'
+    'nuxt-compress-ext'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -56,13 +57,14 @@ export default {
     //     localStorage: ['settings']
     //   }
     // ],
-    ['nuxt-compress',
+    ['nuxt-compress-ext',
       {
         gzip: {
           threshold: 8192,
         },
         brotli: {
           threshold: 8192,
+
         },
       },
     ],
@@ -86,6 +88,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     treeShake: true,
+    defaultAssets: false,
     theme: {
       dark: false,
       options: {

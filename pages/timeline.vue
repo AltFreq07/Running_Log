@@ -12,7 +12,7 @@
         right
         @click="goBack"
       >
-        <v-icon>mdi-keyboard-backspace</v-icon>
+        <v-icon>{{ mdiKeyboardBackspace }}</v-icon>
       </v-btn>
       <v-timeline-item
         class="mb-6"
@@ -65,8 +65,10 @@ import { mapGetters } from 'vuex'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 import PagePreload from '@/components/Loader/PagePreload.vue'
+import mdiKeyboardBackspace from '@/mixins/Icons/mdiKeyboardBackspace.js'
 
 export default {
+  mixins: [mdiKeyboardBackspace],
   components: { PagePreload },
   fetch() {
     this.type = this.$route.params.type

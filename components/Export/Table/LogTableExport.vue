@@ -5,6 +5,7 @@
     class="elevation-1 mt-10"
     disable-pagination
     :hide-default-footer="true"
+    :header-props="{ sortIcon: mdiArrowUp }"
   >
     <template #top>
       <v-toolbar flat>
@@ -41,7 +42,9 @@
 <script>
 import DisplayColumn from './DisplayColumn.vue'
 import GalleryColumn from './GalleryColumn/GalleryColumn.vue'
+import mdiArrowUp from '@/mixins/Icons/mdiArrowUp.js'
 export default {
+  mixins: [mdiArrowUp],
   components: {
     DisplayColumn,
     GalleryColumn,

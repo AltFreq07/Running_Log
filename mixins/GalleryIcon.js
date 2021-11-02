@@ -1,29 +1,43 @@
 import ColumnProps from '~/mixins/ColumnProps.js'
+import mdiImagePlus from '@/mixins/Icons/mdiImagePlus'
+import mdiNumeric1Box from '@/mixins/Icons/mdiNumeric1Box'
+import mdiNumeric2BoxMultiple from '@/mixins/Icons/mdiNumeric2BoxMultiple'
+import mdiNumeric3BoxMultiple from '@/mixins/Icons/mdiNumeric3BoxMultiple'
+import mdiNumeric4BoxMultiple from '@/mixins/Icons/mdiNumeric4BoxMultiple'
+import mdiNumeric5BoxMultiple from '@/mixins/Icons/mdiNumeric5BoxMultiple'
+import mdiNumeric6BoxMultiple from '@/mixins/Icons/mdiNumeric6BoxMultiple'
+import mdiNumeric7BoxMultiple from '@/mixins/Icons/mdiNumeric7BoxMultiple'
+import mdiNumeric8BoxMultiple from '@/mixins/Icons/mdiNumeric8BoxMultiple'
+import mdiNumeric9BoxMultiple from '@/mixins/Icons/mdiNumeric9BoxMultiple'
+import mdiNumeric9PlusBoxMultiple from '@/mixins/Icons/mdiNumeric9PlusBoxMultiple'
+
 export default {
-    mixins: [ColumnProps],
+    mixins: [ColumnProps, mdiImagePlus, mdiNumeric1Box, mdiNumeric2BoxMultiple, mdiNumeric3BoxMultiple, mdiNumeric4BoxMultiple, mdiNumeric5BoxMultiple, mdiNumeric6BoxMultiple, mdiNumeric7BoxMultiple, mdiNumeric8BoxMultiple, mdiNumeric9BoxMultiple, mdiNumeric9PlusBoxMultiple],
     computed: {
         getIcon() {
             switch (this.array.length) {
                 case 0:
-                    return 'mdi-image-plus'
+                    return this.mdiImagePlus
                 case 1:
-                    return 'mdi-numeric-1-box'
+                    return this.mdiNumeric1Box
                 case 2:
-                    return 'mdi-numeric-2-box-multiple'
+                    return this.mdiNumeric2BoxMultiple
                 case 3:
-                    return 'mdi-numeric-3-box-multiple'
+                    return this.mdiNumeric3BoxMultiple
                 case 4:
-                    return 'mdi-numeric-4-box-multiple'
+                    return this.mdiNumeric4BoxMultiple
                 case 5:
-                    return 'mdi-numeric-5-box-multiple'
+                    return this.mdiNumeric5BoxMultiple
                 case 6:
-                    return 'mdi-numeric-6-box-multiple'
+                    return this.mdiNumeric6BoxMultiple
                 case 7:
-                    return 'mdi-numeric-7-box-multiple'
+                    return this.mdiNumeric7BoxMultiple
                 case 8:
-                    return 'mdi-numeric-8-box-multiple'
+                    return this.mdiNumeric8BoxMultiple
+                case 9:
+                    return this.mdiNumeric9BoxMultiple
                 default:
-                    return 'mdi-numeric-9-plus-box-multiple'
+                    return this.mdiNumeric9PlusBoxMultiple
             }
         },
     },

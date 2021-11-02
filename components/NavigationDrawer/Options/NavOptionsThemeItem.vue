@@ -10,9 +10,7 @@
     ></v-list-item-title>
     <v-list-item-icon
       ><v-icon>{{
-        $vuetify.theme.dark
-          ? 'mdi-white-balance-sunny '
-          : 'mdi-moon-waning-crescent'
+        $vuetify.theme.dark ? mdiWhiteBalanceSunny : mdiMoonWaningCrescent
       }}</v-icon></v-list-item-icon
     >
   </v-list-item>
@@ -20,8 +18,10 @@
 
 <script>
 import { mapActions } from 'vuex'
-
+import mdiWhiteBalanceSunny from '@/mixins/Icons/mdiWhiteBalanceSunny.js'
+import mdiMoonWaningCrescent from '@/mixins/Icons/mdiMoonWaningCrescent.js'
 export default {
+  mixins: [mdiWhiteBalanceSunny, mdiMoonWaningCrescent],
   methods: {
     ...mapActions({
       toggleTheme: 'settings/toggleTheme',

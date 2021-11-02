@@ -1,5 +1,9 @@
 <template>
-  <v-list-group prepend-icon="mdi-timeline-clock" no-action>
+  <v-list-group
+    :prepend-icon="mdiTimelineClock"
+    :append-icon="mdiChevronDown"
+    no-action
+  >
     <timeline-dialog ref="timelineDialog" :case-data="caseData" />
     <template v-slot:activator>
       <v-list-item-title>Timeline</v-list-item-title>
@@ -8,11 +12,11 @@
       v-for="(item, index) in items"
       :key="index"
       link
-      @click="getExportData(item.title)"
+      @click="getExportData(item)"
     >
-      <v-list-item-title>{{ item.title }}</v-list-item-title>
+      <v-list-item-title>{{ item }}</v-list-item-title>
       <v-list-item-icon>
-        <v-icon>{{ item.icon }}</v-icon>
+        <v-icon>{{ getIcon(item) }}</v-icon>
       </v-list-item-icon>
     </v-list-item>
   </v-list-group>
@@ -20,7 +24,19 @@
 
 <script>
 import TimelineDialog from './TimelineDialog.vue'
+import mdiTimelineClock from '@/mixins/Icons/mdiTimelineClock.js'
+import mdiTimelineClockOutline from '@/mixins/Icons/mdiTimelineClockOutline.js'
+import mdiFilePdfBox from '@/mixins/Icons/mdiFilePdfBox.js'
+import mdiImage from '@/mixins/Icons/mdiImage.js'
+import mdiChevronDown from '@/mixins/Icons/mdiChevronDown.js'
 export default {
+  mixins: [
+    mdiTimelineClock,
+    mdiFilePdfBox,
+    mdiTimelineClockOutline,
+    mdiImage,
+    mdiChevronDown,
+  ],
   components: { TimelineDialog },
   props: {
     caseData: {
@@ -30,14 +46,20 @@ export default {
   },
   data() {
     return {
-      items: [
-        { title: 'Preview', icon: 'mdi-timeline-clock-outline' },
-        { title: 'PDF', icon: 'mdi-file-pdf-box' },
-        { title: 'Image', icon: 'mdi-image' },
-      ],
+      items: ['Preview', 'PDF', 'Image'],
     }
   },
   methods: {
+    getIcon(title) {
+      switch (title) {
+        case 'Preview':
+          return this.mdiTimelineClockOutline
+        case 'PDF':
+          return this.mdiFilePdfBox
+        case 'Image':
+          return this.mdiImage
+      }
+    },
     getExportData(string) {
       this.$refs.timelineDialog.type = string
       this.$refs.timelineDialog.dialog = true

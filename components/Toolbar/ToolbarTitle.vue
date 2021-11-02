@@ -6,7 +6,7 @@
       :value="caseData === undefined ? '' : caseData.title"
       placeholder="Enter a title"
       :hide-details="true"
-      :append-icon="titleIcon ? 'mdi-pencil' : ''"
+      :append-icon="titleIcon ? mdiPencil : ''"
       @input="updateTitle({ id: caseData.id, title: $event })"
       @focus="titleIcon = true"
       @blur="titleIcon = false"
@@ -16,7 +16,9 @@
 
 <script>
 import { mapActions } from 'vuex'
+import mdiPencil from '@/mixins/Icons/mdiPencil.js'
 export default {
+  mixins: [mdiPencil],
   props: {
     caseData: {
       type: Object,

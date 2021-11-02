@@ -1,19 +1,18 @@
 <template>
   <div class="text-center">
-    <button-icon
-      text="Load"
-      icon="mdi-briefcase-eye"
-      color="primary"
-      @click="$refs.loadDialog.dialog = true"
-    />
+    <v-btn color="primary" class="mx-2" @click="$refs.loadDialog.dialog = true"
+      >Load &nbsp;<v-icon>{{ mdiBriefcaseEye }}</v-icon></v-btn
+    >
     <load-dialog ref="loadDialog" />
   </div>
 </template>
 
 <script>
-import ButtonIcon from './ButtonIcon.vue'
 import LoadDialog from './LoadDialog.vue'
+import mdiBriefcaseEye from '@/mixins/Icons/mdiBriefcaseEye'
+
 export default {
-  components: { ButtonIcon, LoadDialog },
+  mixins: [mdiBriefcaseEye],
+  components: { LoadDialog },
 }
 </script>

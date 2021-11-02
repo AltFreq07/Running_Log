@@ -1,7 +1,7 @@
 <template>
   <v-list-item link @click="$refs.uploader.click()">
     <v-list-item-icon>
-      <v-icon>mdi-file-import</v-icon>
+      <v-icon>{{ mdiFileImport }}</v-icon>
       <input
         v-show="false"
         ref="uploader"
@@ -19,7 +19,9 @@
 
 <script>
 import { mapActions } from 'vuex'
+import mdiFileImport from '@/mixins/Icons/mdiFileImport.js'
 export default {
+  mixins: [mdiFileImport],
   methods: {
     onFileChanged(e) {
       const file = e.target.files[0]

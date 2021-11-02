@@ -1,7 +1,7 @@
 <template>
   <v-list-item link @click="$refs.loadDialog.dialog = true">
     <v-list-item-icon>
-      <v-icon>mdi-briefcase-eye</v-icon>
+      <v-icon>{{ mdiBriefcaseEye }}</v-icon>
     </v-list-item-icon>
 
     <v-list-item-content>
@@ -13,8 +13,10 @@
 
 <script>
 import LoadDialog from '../Buttons/LoadDialog.vue'
+import mdiBriefcaseEye from '@/mixins/Icons/mdiBriefcaseEye.js'
 
 export default {
+  mixins: [mdiBriefcaseEye],
   components: { LoadDialog },
 }
 </script>

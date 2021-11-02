@@ -1,7 +1,7 @@
 <template>
   <v-list-item link @click="$refs.templates.dialog = true">
     <v-list-item-icon>
-      <v-icon>mdi-briefcase-plus</v-icon>
+      <v-icon>{{ mdiBriefcasePlus }}</v-icon>
     </v-list-item-icon>
 
     <v-list-item-content>
@@ -13,8 +13,10 @@
 
 <script>
 import TemplateDialog from '../Buttons/TemplateDialog.vue'
+import mdiBriefcasePlus from '@/mixins/Icons/mdiBriefcasePlus.js'
 
 export default {
+  mixins: [mdiBriefcasePlus],
   components: { TemplateDialog },
 }
 </script>

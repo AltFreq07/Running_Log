@@ -21,7 +21,7 @@
         "
       >
         <v-btn icon>
-          <v-icon>mdi-close</v-icon>
+          <v-icon>{{ mdiClose }}</v-icon>
         </v-btn>
       </v-list-item-action></template
     >
@@ -40,9 +40,10 @@
 
 <script>
 import ColumnProps from '~/mixins/ColumnProps.js'
+import mdiClose from '@/mixins/Icons/mdiClose.js'
 
 export default {
-  mixins: [ColumnProps],
+  mixins: [ColumnProps, mdiClose],
   props: {
     showAdd: {
       type: Boolean,

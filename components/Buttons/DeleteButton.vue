@@ -10,14 +10,14 @@
     right
     @click="$emit('click')"
   >
-    <v-icon>mdi-delete</v-icon>
+    <v-icon>{{ mdiDelete }}</v-icon>
   </v-btn>
 </template>
 
 <script>
 import ColumnProps from '~/mixins/ColumnProps.js'
-
+import mdiDelete from '~/mixins/Icons/mdiDelete.js'
 export default {
-  mixins: [ColumnProps],
+  mixins: [ColumnProps, mdiDelete],
 }
 </script>

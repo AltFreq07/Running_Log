@@ -1,20 +1,18 @@
 <template>
   <div>
-    <button-icon
-      text="New"
-      icon="mdi-briefcase-plus"
-      color="primary"
-      @click="$refs.templates.dialog = true"
-    />
+    <v-btn color="primary" class="mx-2" @click="$refs.templates.dialog = true"
+      >New &nbsp;<v-icon>{{ mdiBriefcasePlus }}</v-icon></v-btn
+    >
     <template-dialog ref="templates" />
   </div>
 </template>
 
 <script>
-import ButtonIcon from './ButtonIcon.vue'
 import TemplateDialog from './TemplateDialog.vue'
+import mdiBriefcasePlus from '@/mixins/Icons/mdiBriefcasePlus.js'
 
 export default {
-  components: { ButtonIcon, TemplateDialog },
+  mixins: [mdiBriefcasePlus],
+  components: { TemplateDialog },
 }
 </script>

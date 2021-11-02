@@ -16,14 +16,19 @@
       </v-row>
     </v-container>
     <v-spacer />
-    <v-app-bar-nav-icon @click="$emit('navDrawerClicked')" />
+    <v-app-bar-nav-icon @click="$emit('navDrawerClicked')"
+      ><template #default>
+        <v-icon>{{ mdiMenu }} </v-icon>
+      </template></v-app-bar-nav-icon
+    >
   </v-app-bar>
 </template>
 
 
 <script>
 import CaseDataProp from '@/mixins/CaseDataProp.js'
+import mdiMenu from '@/mixins/Icons/mdiMenu.js'
 export default {
-  mixins: [CaseDataProp],
+  mixins: [CaseDataProp, mdiMenu],
 }
 </script>

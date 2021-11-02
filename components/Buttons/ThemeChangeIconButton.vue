@@ -7,16 +7,16 @@
     "
   >
     <v-icon>{{
-      $vuetify.theme.dark
-        ? 'mdi-white-balance-sunny '
-        : 'mdi-moon-waning-crescent'
+      $vuetify.theme.dark ? mdiWhiteBalanceSunny : mdiMoonWaningCrescent
     }}</v-icon>
   </v-btn>
 </template>
 
 <script>
 import ThemeToggle from '@/mixins/ThemeToggle.js'
+import mdiWhiteBalanceSunny from '@/mixins/Icons/mdiWhiteBalanceSunny.js'
+import mdiMoonWaningCrescent from '@/mixins/Icons/mdiMoonWaningCrescent.js'
 export default {
-  mixins: [ThemeToggle],
+  mixins: [ThemeToggle, mdiWhiteBalanceSunny, mdiMoonWaningCrescent],
 }
 </script>

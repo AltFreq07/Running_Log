@@ -5,7 +5,7 @@
     :value="caseData === undefined ? '' : caseData.category"
     placeholder="Category"
     :hide-details="true"
-    :append-icon="categoryIcon ? 'mdi-pencil' : ''"
+    :append-icon="categoryIcon ? mdiPencil : ''"
     @input="updateCategory({ id: caseData.id, category: $event })"
     @focus="categoryIcon = true"
     @blur="categoryIcon = false"
@@ -14,7 +14,9 @@
 
 <script>
 import { mapActions } from 'vuex'
+import mdiPencil from '@/mixins/Icons/mdiPencil.js'
 export default {
+  mixins: [mdiPencil],
   props: {
     caseData: {
       type: Object,

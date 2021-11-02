@@ -1,7 +1,7 @@
 <template>
   <v-expansion-panels>
     <v-expansion-panel v-for="(item, value, i) in getCategories" :key="i">
-      <v-expansion-panel-header>
+      <v-expansion-panel-header :expand-icon="mdiChevronDown">
         {{ value }}
       </v-expansion-panel-header>
       <v-expansion-panel-content>
@@ -24,7 +24,8 @@
 
 <script>
 import GetCategories from '@/mixins/GetCategories'
+import mdiChevronDown from '@/mixins/Icons/mdiChevronDown.js'
 export default {
-  mixins: [GetCategories],
+  mixins: [GetCategories, mdiChevronDown],
 }
 </script>

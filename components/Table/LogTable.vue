@@ -5,6 +5,7 @@
     class="elevation-1"
     disable-pagination
     :hide-default-footer="true"
+    :header-props="{ sortIcon: mdiArrowUp }"
   >
     <template #top>
       <v-toolbar flat>
@@ -99,9 +100,10 @@
 import { mapActions, mapGetters } from 'vuex'
 import LogTableFooter from './LogTableFooter.vue'
 import GetColumnComponent from '@/mixins/GetColumnComponent.js'
+import mdiArrowUp from '@/mixins/Icons/mdiArrowUp.js'
 
 export default {
-  mixins: [GetColumnComponent],
+  mixins: [GetColumnComponent, mdiArrowUp],
   components: {
     LogTableFooter,
   },

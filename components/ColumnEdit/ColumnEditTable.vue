@@ -5,6 +5,7 @@
     class="elevation-1 mx-2"
     disable-pagination
     :hide-default-footer="true"
+    :header-props="{ sortIcon: mdiArrowUp }"
   >
     <template #foot>
       <tr>
@@ -19,7 +20,7 @@
                 @click="
                   addColumn({ id: caseData.id, data: { ...defaultColumn } })
                 "
-                ><v-icon>mdi-plus</v-icon></v-btn
+                ><v-icon>{{ mdiPlus }}</v-icon></v-btn
               >
             </v-row>
           </v-card>
@@ -76,7 +77,7 @@
           />
         </td>
         <td>
-          <v-icon>mdi-drag-vertical</v-icon>
+          <v-icon>{{ mdiDragVertical }}</v-icon>
         </td>
       </tr>
     </template>
@@ -85,11 +86,19 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import GetColumnComponent from '@/mixins/GetColumnComponent.js'
+import mdiPlus from '@/mixins/Icons/mdiPlus.js'
+import mdiDragVertical from '@/mixins/Icons/mdiDragVertical.js'
 import CaseDataProp from '@/mixins/CaseDataProp.js'
+import mdiArrowUp from '@/mixins/Icons/mdiArrowUp.js'
 
 export default {
-  mixins: [GetColumnComponent, CaseDataProp],
-
+  mixins: [
+    GetColumnComponent,
+    CaseDataProp,
+    mdiPlus,
+    mdiDragVertical,
+    mdiArrowUp,
+  ],
   data() {
     return {
       hoveredRow: -1,
