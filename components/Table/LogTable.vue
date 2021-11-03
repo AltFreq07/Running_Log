@@ -26,6 +26,7 @@
           v-for="(value, i) in caseData.columns"
           :key="i"
           @click="focusInput(value.value, index, value.type)"
+          class="vertical-cell"
         >
           <component
             class="d-flex justify-center"
@@ -95,6 +96,11 @@
   </v-data-table>
 </template>
 
+<style>
+.vertical-cell {
+  vertical-align: top;
+}
+</style>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
