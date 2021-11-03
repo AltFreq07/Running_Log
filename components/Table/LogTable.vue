@@ -26,7 +26,7 @@
           v-for="(value, i) in caseData.columns"
           :key="i"
           @click="focusInput(value.value, index, value.type)"
-          class="vertical-cell"
+          class="vertical-cell pt-4"
         >
           <component
             class="d-flex justify-center"

@@ -5,7 +5,7 @@
     dense
     persistent-hint
     flat
-    class="text-body-2 ma-0 pt-3"
+    class="text-body-2 ma-0 pt-0"
     @input="
       $emit('updateData', $event)
       $emit('addListItem', $event)
