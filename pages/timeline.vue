@@ -103,7 +103,7 @@ export default {
       newDate.setHours(newDate.getHours() + this.timezone.value)
       return (
         newDate.toUTCString().substring(0, newDate.toUTCString().length - 3) +
-        (this.timezone.value > 0 ? '+' : '') +
+        (this.timezone.value >= 0 ? '+' : '') +
         this.timezone.value.toString() +
         ':00'
       )
