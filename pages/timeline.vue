@@ -45,7 +45,7 @@
             </span>
           </v-col>
           <v-col class="text-right" cols="5">
-            {{ new Date(item.date).toString() }}
+            {{ getUTCString(item.date) }}
           </v-col>
         </v-row>
       </v-timeline-item>
@@ -73,6 +73,7 @@ export default {
   fetch() {
     this.type = this.$route.params.type
     this.caseID = this.$route.params.caseID
+    this.timezone = this.$route.params.timezone
     this.caseTitle = this.$route.params.caseTitle
     this.data = this.$route.params.data
     this.titleColor = this.$route.params.titleColor
@@ -84,6 +85,7 @@ export default {
       type: undefined,
       caseID: undefined,
       caseTitle: undefined,
+      timezone: 0,
       data: [],
       titleColor: 'grey',
       baseColor: 'grey',
@@ -92,6 +94,23 @@ export default {
     }
   },
   methods: {
+    getUTCString(date) {
+      const newDate = new Date(date)
+      console.log(newDate.toString())
+      console.log('Adding ' + newDate.getTimezoneOffset() / 60 + ' hours')
+      // newDate.setHours(newDate.getHours() + newDate.getTimezoneOffset() / 60)
+      // console.log(newDate.toUTCString())
+      console.log('Adding timezone of ' + this.timezone.value + ' hours')
+      newDate.setHours(newDate.getHours() + this.timezone.value)
+      console.log(newDate.toUTCString())
+      return (
+        newDate.toUTCString().substring(0, newDate.toUTCString().length - 3) +
+        (this.timezone.value > 0 ? '+' : '') +
+        this.timezone.value.toString() +
+        ':00'
+      )
+    },
+
     goBack() {
       return window.history.length > 1
         ? this.$router.go(-1)

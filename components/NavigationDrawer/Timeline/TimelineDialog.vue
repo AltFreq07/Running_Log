@@ -20,6 +20,17 @@
                       : ''
                   "
                 />
+                <label>Timezone</label>
+                <timeline-dialog-drop-down
+                  :items="timeZoneList"
+                  v-model="timezone"
+                  label="Select timezone*"
+                  :error-messages="
+                    $v.$dirty && !$v.timezone.required
+                      ? 'Timezone is required'
+                      : ''
+                  "
+                />
               </v-col>
               <v-col cols="12" sm="12" md="12">
                 <label>Text source:</label>
@@ -97,6 +108,7 @@ export default {
       textSource: undefined,
       importantSource: undefined,
       submitStatus: null,
+      timezone: undefined,
     }
   },
   validations: {
@@ -104,6 +116,9 @@ export default {
       required,
     },
     textSource: {
+      required,
+    },
+    timezone: {
       required,
     },
   },
@@ -117,6 +132,7 @@ export default {
             caseID: this.caseData.id,
             caseTitle: this.caseData.title,
             type: this.type,
+            timezone: this.timezone,
             data: this.caseData.data.map((item) => ({
               date: item[this.datetimeSource.value], //  command = user defined
               data: item[this.textSource.value],
@@ -134,6 +150,16 @@ export default {
     },
   },
   computed: {
+    timeZoneList() {
+      const list = []
+      for (let i = -12; i < 14; i++) {
+        list.push({
+          value: i,
+          name: i + ':00',
+        })
+      }
+      return list
+    },
     dateTimeColums() {
       return this.caseData.columns
         .filter((col) => col.type === 'DateTime')
