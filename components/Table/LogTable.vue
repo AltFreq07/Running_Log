@@ -43,7 +43,7 @@
                 : []
             "
             :bool="
-              typeof item[value.value] === 'boolean' ? item[value.value] : ''
+              typeof item[value.value] === 'boolean' ? item[value.value] : false
             "
             :caseID="caseData.id"
             :caseRow="index"

@@ -23,7 +23,9 @@ export default {
     }
   },
   mounted() {
-    this.realBool = this.bool
+    if (this.bool) {
+      this.realBool = this.bool
+    }
   },
 }
 </script>

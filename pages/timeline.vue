@@ -31,7 +31,7 @@
         :color="data[index].important ? importantColor : baseColor"
         icon-color="grey lighten-2"
         small
-        v-for="(item, index) in data"
+        v-for="(item, index) in dateSorted"
         :key="index"
       >
         <v-row justify="space-between">
@@ -94,15 +94,13 @@ export default {
     }
   },
   methods: {
+    log(b) {
+      console.log(b)
+    },
     getUTCString(date) {
       const newDate = new Date(date)
-      console.log(newDate.toString())
-      console.log('Adding ' + newDate.getTimezoneOffset() / 60 + ' hours')
-      // newDate.setHours(newDate.getHours() + newDate.getTimezoneOffset() / 60)
       // console.log(newDate.toUTCString())
-      console.log('Adding timezone of ' + this.timezone.value + ' hours')
       newDate.setHours(newDate.getHours() + this.timezone.value)
-      console.log(newDate.toUTCString())
       return (
         newDate.toUTCString().substring(0, newDate.toUTCString().length - 3) +
         (this.timezone.value > 0 ? '+' : '') +
@@ -188,6 +186,16 @@ export default {
       } else {
         return this.caseTitle
       }
+    },
+    dateSorted() {
+      const obj = [...this.data]
+      return obj.sort((a, b) => {
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+        if (dateA < dateB) return -1
+        if (dateA > dateB) return 1
+        return 0
+      })
     },
   },
 }
