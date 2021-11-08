@@ -33,6 +33,30 @@ export async function getDataFromHTML(data) {
   return JSON.parse(decompressed)
 }
 
+function sortDate(data) {
+  const obj = [...data]
+  return obj.sort((a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    if (dateA < dateB) return -1
+    if (dateA > dateB) return 1
+    return 0
+  })
+}
+
+function getUTCString(date) {
+  const newDate = new Date(date)
+  // console.log(newDate.toUTCString())
+  newDate.setHours(
+    newDate.getHours() + (newDate.getTimezoneOffset() / 60) * -1
+  )
+  return (
+    newDate.toUTCString().substring(0, newDate.toUTCString().length - 3) +
+    ' UTC'
+  )
+}
+
+
 export async function getHTMLData(protocol, host, caseData) {
   const data =
     `<!DOCTYPE html>
@@ -67,22 +91,24 @@ export async function getMarkdownData(caseData) {
     data += ' ----------- |'
   }
 
-  for (let i = 0; i < caseData.data.length; i++) {
-    data +=
-      `
-| `
+  for (row of sortDate(caseData.data)) {
+    data += `
+    `
+    data += `| `
     for (const col of caseData.columns.filter(column => column.export === true)) {
       // if col type is "Screenshots" then add data to data
-      if (col.type === 'Screenshots' && caseData.data[i][col.value] !== undefined && caseData.data[i][col.value].length > 0) {
-        for (const img of caseData.data[i][col.value]) {
+      if (col.type === 'Screenshots' && row[col.value] !== undefined && row[col.value].length > 0) {
+        for (const img of row[col.value]) {
           const resized = await PasteService.resizeImage(PasteService.toBlob(img), 100, 100)
           data += `[![Screenshot](${resized})](${img})`
         }
         data += ' |'
-      } else {
-        data += (caseData.data[i][col.value] !== undefined ? caseData.data[i][col.value] : '') + ' | '
+      } else if (col.type === 'DateTime' && row[col.value] !== undefined) {
+        data += `${getUTCString(row[col.value])}` + ' | '
       }
+      data += (row[col.value] !== undefined ? row[col.value] : '') + ' | '
     }
   }
-  return data
+}
+return data
 }
