@@ -28,7 +28,7 @@
 
       <v-timeline-item
         class="mb-4"
-        :color="data[index].important ? importantColor : baseColor"
+        :color="dateSorted[index].important ? importantColor : baseColor"
         icon-color="grey lighten-2"
         small
         v-for="(item, index) in dateSorted"
