@@ -100,7 +100,9 @@ export default {
     getUTCString(date) {
       const newDate = new Date(date)
       // console.log(newDate.toUTCString())
-      newDate.setHours(newDate.getHours() + this.timezone.value)
+      newDate.setHours(
+        newDate.getHours() + (newDate.getTimezoneOffset() / 60) * -1
+      )
       return (
         newDate.toUTCString().substring(0, newDate.toUTCString().length - 3) +
         (this.timezone.value >= 0 ? '+' : '') +
