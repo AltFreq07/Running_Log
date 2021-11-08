@@ -36,8 +36,8 @@ export async function getDataFromHTML(data) {
 function sortDate(data) {
   const obj = [...data]
   return obj.sort((a, b) => {
-    const dateA = new Date(a.date)
-    const dateB = new Date(b.date)
+    const dateA = new Date(a.timestamp)
+    const dateB = new Date(b.timestamp)
     if (dateA < dateB) return -1
     if (dateA > dateB) return 1
     return 0
@@ -91,9 +91,10 @@ export async function getMarkdownData(caseData) {
     data += ' ----------- |'
   }
 
-  for (row of sortDate(caseData.data)) {
+  for (const row of sortDate(caseData.data)) {
+    console.log(row)
     data += `
-    `
+`
     data += `| `
     for (const col of caseData.columns.filter(column => column.export === true)) {
       // if col type is "Screenshots" then add data to data
@@ -105,10 +106,10 @@ export async function getMarkdownData(caseData) {
         data += ' |'
       } else if (col.type === 'DateTime' && row[col.value] !== undefined) {
         data += `${getUTCString(row[col.value])}` + ' | '
+      } else {
+        data += (row[col.value] !== undefined ? row[col.value] : '') + ' | '
       }
-      data += (row[col.value] !== undefined ? row[col.value] : '') + ' | '
     }
   }
-}
-return data
+  return data
 }
