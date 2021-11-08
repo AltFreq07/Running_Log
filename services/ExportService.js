@@ -2,6 +2,7 @@ import * as brotliPromise from 'brotli-wasm';
 import {
   encode, trim, decode
 } from 'url-safe-base64'
+import * as PasteService from '@/services/PasteService';
 
 async function brotliCompress(string) {
   const brotli = await brotliPromise;
@@ -47,7 +48,7 @@ export async function getHTMLData(protocol, host, caseData) {
     `
   return data
 }
-export function getMarkdownData(caseData) {
+export async function getMarkdownData(caseData) {
   let data = ''
 
   data += `
@@ -56,13 +57,13 @@ export function getMarkdownData(caseData) {
   `
 
   data += `| `
-  for (const col of caseData.columns.filter(column => column.export === true && column.type !== "Screenshots")) {
+  for (const col of caseData.columns.filter(column => column.export === true)) {
     data += col.text + ' | '
   }
   data += `
   `
   data += `| `
-  for (let i = 0; i < caseData.columns.filter(column => column.export === true && column.type !== "Screenshots").length; i++) {
+  for (let i = 0; i < caseData.columns.filter(column => column.export === true).length; i++) {
     data += ' ----------- |'
   }
 
@@ -70,8 +71,17 @@ export function getMarkdownData(caseData) {
     data +=
       `
 | `
-    for (const col of caseData.columns.filter(column => column.export === true && column.type !== "Screenshots")) {
-      data += caseData.data[i][col.value] + ' | '
+    for (const col of caseData.columns.filter(column => column.export === true)) {
+      // if col type is "Screenshots" then add data to data
+      if (col.type === 'Screenshots' && caseData.data[i][col.value] !== undefined && caseData.data[i][col.value].length > 0) {
+        for (const img of caseData.data[i][col.value]) {
+          const resized = await PasteService.resizeImage(PasteService.toBlob(img), 100, 100)
+          data += `[![Screenshot](${resized})](${img})`
+        }
+        data += ' |'
+      } else {
+        data += (caseData.data[i][col.value] !== undefined ? caseData.data[i][col.value] : '') + ' | '
+      }
     }
   }
   return data

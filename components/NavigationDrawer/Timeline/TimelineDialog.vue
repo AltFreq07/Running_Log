@@ -24,7 +24,7 @@
                 <timeline-dialog-drop-down
                   :items="timeZoneList"
                   v-model="timezone"
-                  label="Select timezone*"
+                  label="Select timelines timezone*"
                   :error-messages="
                     $v.$dirty && !$v.timezone.required
                       ? 'Timezone is required'

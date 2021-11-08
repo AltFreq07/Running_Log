@@ -97,7 +97,7 @@ export default {
           break
         case 'Markdown':
           this.exportData(
-            this.getMarkdownData(),
+            await this.getMarkdownData(),
             this.caseData.title === '' ? this.caseData.id : this.caseData.title,
             'md',
             'text/markdown'
@@ -111,8 +111,8 @@ export default {
         this.caseData
       )
     },
-    getMarkdownData() {
-      return ExportFunctions.getMarkdownData(this.caseData)
+    async getMarkdownData() {
+      return await ExportFunctions.getMarkdownData(this.caseData)
     },
   },
 }
