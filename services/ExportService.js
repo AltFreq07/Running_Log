@@ -50,6 +50,8 @@ function getUTCString(date) {
   newDate.setHours(
     newDate.getHours() + (newDate.getTimezoneOffset() / 60) * -1
   )
+  console.log(newDate.toUTCString().substring(0, newDate.toUTCString().length - 3) +
+    ' UTC')
   return (
     newDate.toUTCString().substring(0, newDate.toUTCString().length - 3) +
     ' UTC'
@@ -98,6 +100,7 @@ export async function getMarkdownData(caseData) {
     data += `| `
     for (const col of caseData.columns.filter(column => column.export === true)) {
       // if col type is "Screenshots" then add data to data
+      console.log(col.type)
       if (col.type === 'Screenshots' && row[col.value] !== undefined && row[col.value].length > 0) {
         for (const img of row[col.value]) {
           const resized = await PasteService.resizeImage(PasteService.toBlob(img), 100, 100)
