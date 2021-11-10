@@ -33,9 +33,11 @@ export function toBlob(base64) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: 'image/png' });
+    const blob = new Blob([byteArray], { type: 'image/jpeg' });
     return blob
 }
+
+
 
 export function resizeImage(file, maxWidth, maxHeight) {
     return new Promise((resolve, reject) => {

@@ -80,12 +80,16 @@ export default {
     async getExportData(string) {
       switch (string) {
         case 'HTML':
-          this.exportData(
-            await this.getHTMLData(),
-            this.caseData.title === '' ? this.caseData.id : this.caseData.title,
-            'html',
-            'text/html'
-          )
+          this.$router.push({
+            name: 'report',
+            params: {
+              // caseID: this.caseData.id,
+              // caseTitle: this.caseData.title,
+              // type: this.type,
+              // timezone: this.timezone,
+              data: this.caseData,
+            },
+          })
           break
         case 'JSON':
           this.exportData(
@@ -104,8 +108,8 @@ export default {
           )
       }
     },
-    getHTMLData() {
-      return ExportFunctions.getHTMLData(
+    async getHTMLData() {
+      return await ExportFunctions.getHTMLData(
         window.location.protocol,
         window.location.host,
         this.caseData

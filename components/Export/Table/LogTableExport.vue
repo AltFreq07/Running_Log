@@ -1,7 +1,11 @@
 <template>
   <v-data-table
-    :headers="caseData.columns.filter((col) => col.export === true)"
-    :items="caseData.data"
+    :headers="
+      caseData !== undefined
+        ? caseData.columns.filter((col) => col.export === true)
+        : []
+    "
+    :items="caseData !== undefined ? caseData.data : []"
     class="elevation-1 mt-10"
     disable-pagination
     :hide-default-footer="true"
@@ -16,9 +20,9 @@
     <template #item="{ item, index }">
       <tr :id="'row-' + index">
         <td
-          v-for="(value, i) in caseData.columns.filter(
-            (col) => col.export === true
-          )"
+          v-for="(value, i) in caseData !== undefined
+            ? caseData.columns.filter((col) => col.export === true)
+            : []"
           :key="i"
         >
           <component

@@ -1,14 +1,16 @@
 import * as brotliPromise from 'brotli-wasm';
+import Compressor from 'compressorjs';
 import {
-  encode, trim, decode
+  // encode, trim
+  decode
 } from 'url-safe-base64'
 import * as PasteService from '@/services/PasteService';
 
-async function brotliCompress(string) {
-  const brotli = await brotliPromise;
-  const compressedData = brotli.compress(Buffer.from(string));
-  return compressedData;
-}
+// async function brotliCompress(string) {
+//   const brotli = await brotliPromise;
+//   const compressedData = brotli.compress(Buffer.from(string));
+//   return compressedData;
+// }
 
 async function brotliDecompress(buffer) {
   const brotli = await brotliPromise;
@@ -16,17 +18,17 @@ async function brotliDecompress(buffer) {
   return Buffer.from(decompressedData).toString('utf8');
 }
 
-function brotliToB64(uint8Array) {
-  return Buffer.from(uint8Array).toString('base64');
-}
+// function brotliToB64(uint8Array) {
+//   return Buffer.from(uint8Array).toString('base64');
+// }
 
 function B64ToBuffer(base64) {
   return Buffer.from(base64, 'base64');
 }
 
-async function getSafeB64String(caseData) {
-  return trim(encode(brotliToB64(await brotliCompress(JSON.stringify(caseData)))))
-}
+// async function getSafeB64String(caseData) {
+//   return trim(encode(brotliToB64(await brotliCompress(JSON.stringify(caseData)))))
+// }
 
 export async function getDataFromHTML(data) {
   const decompressed = await brotliDecompress(B64ToBuffer(decode(data)))
@@ -58,18 +60,126 @@ function getUTCString(date) {
   )
 }
 
+// function blobToDataURL(blob) {
+//   return new Promise((resolve, reject) => {
+//     const a = new FileReader();
+//     a.onload = function (e) { resolve(e.target.result); }
+//     a.onerror = function (e) { reject(e); }
+//     a.readAsDataURL(blob);
+//   })
+// }
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = (error) => reject(error)
+  })
+}
 
-export async function getHTMLData(protocol, host, caseData) {
-  const data =
-    `<!DOCTYPE html>
+export function toBlob(base64) {
+  const byteCharacters = atob(base64.split(',')[1]);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  const blob = new Blob([byteArray], { type: 'image/webp' });
+  return blob
+}
+
+
+function webPBlobToPNG(blob) {
+  return new Promise(function (resolve, reject) {
+    /* eslint-disable no-new */
+    new Compressor(blob, {
+      quality: 1,
+      mimeType: 'image/jpeg',
+      async success(result) {
+        // console.log(result)
+        const base64 = await toBase64(result)
+        resolve(base64)
+        // // this.$emit('pushCaseData', base64)
+      },
+      error(err) {
+        reject(err.message);
+      },
+    })
+
+  });
+}
+
+export async function getHTMLData(caseData) {
+  //  sort caseData by caseData.data.date
+  const newData = { ...caseData }
+  for (const col of newData.columns.filter(column => column.export === true && column.type === 'Screenshots')) {
+    for (let i = 0; i < newData.data.length; i++) {
+      if (newData.data[i][col.value]) {
+        for (let j = 0; j < newData.data[i][col.value].length; j++) {
+          console.log(newData.data[i][col.value][j])
+          console.log(PasteService.toBlob(newData.data[i][col.value][j]))
+          const jpg = await webPBlobToPNG(toBlob(newData.data[i][col.value][j]))
+          newData.data[i][col.value][j] = jpg
+        }
+      }
+    }
+  }
+  // console.log(newData)
+  const data = `<!DOCTYPE html>
 <html>
-
 <head>
-  <title>${caseData.title}</title>
-  <script>
-      document.location = "${protocol}//${host}/unencrypted/report/#${await getSafeB64String(caseData)}"
-  </script>
+  <title>${newData.title}</title>
+  <style>
+  table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width:610px
+  }
+  thead {
+    width:100%
+  }
+  table td {
+    border: 1px solid black;
+    white-space:pre-line;
+    padding: 10px;
+}
+  table td.shrink {
+    white-space:nowrap
+}
+table td.expand {
+    width: 100%
+}
+img{
+  max-width:100%;
+}
+  </style>
 </head>
+<body>
+  <h1>${newData.title}</h1>
+  <table>
+  <thead>
+  <tr>
+    ${newData.columns.filter(header => header.export === true && header.type !== 'Screenshots').map(header => `<th style="width:${header.width}">${header.text}</th>`).join('')}
+  </tr>
+  </thead>
+  <tbody>
+  ${newData.data.map(data => {
+    return `<tr>
+  ${newData.columns.filter(column => column.export === true && column.type !== 'Screenshots').map(column => `<td>${column.type === 'DateTime' ? getUTCString(data[column.value]) : (data[column.value] || '')}</td>`).join('')}
+  </tr>${newData.columns.filter(column => column.export === true && column.type === 'Screenshots').map(column => data[column.value] ? `<tr><td colspan="${newData.columns.filter(column => column.export === true && column.type !== 'Screenshots').length}">${
+      //  create a function to loop through data[column.value] and convert to png using webPtoPNG
+      (function () {
+        let str = ''
+        for (const img of data[column.value]) {
+          str += `<img src="${img}">`
+        }
+        return str
+      })()
+      }</td></tr>` : ``)}`
+  }
+  ).join('')}
+  </tbody>
+</body>
 </html>
     `
   return data
