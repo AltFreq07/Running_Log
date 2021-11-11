@@ -136,22 +136,23 @@ export async function getHTMLData(caseData) {
     width:610px
   }
   thead {
-    width:100%
+    max-width:600px;
+  }
+  th {
+    max-width:600px;
   }
   table td {
     border: 1px solid black;
     white-space:pre-line;
     padding: 10px;
-}
-  table td.shrink {
-    white-space:nowrap
-}
-table td.expand {
-    width: 100%
-}
-img{
-  max-width:100%;
-}
+    max-width:600px;
+  }
+  table tr {
+    max-width:600px;
+  }
+  img{
+    max-width:600px;
+  }
   </style>
 </head>
 <body>
