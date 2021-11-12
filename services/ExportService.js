@@ -109,9 +109,21 @@ function webPBlobToPNG(blob) {
   });
 }
 
+function dateSorted(data) {
+  console.log('sorting')
+  const obj = [...data]
+  return obj.sort((a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    if (dateA < dateB) return -1
+    if (dateA > dateB) return 1
+    return 0
+  })
+}
+
 export async function getHTMLData(caseData) {
   //  sort caseData by caseData.data.date
-  const newData = { ...caseData }
+  let newData = { ...caseData }
   for (const col of newData.columns.filter(column => column.export === true && column.type === 'Screenshots')) {
     for (let i = 0; i < newData.data.length; i++) {
       if (newData.data[i][col.value]) {
@@ -124,6 +136,9 @@ export async function getHTMLData(caseData) {
       }
     }
   }
+
+  newData = dateSorted(newData)
+
   // console.log(newData)
   const data = `<!DOCTYPE html>
 <html>
