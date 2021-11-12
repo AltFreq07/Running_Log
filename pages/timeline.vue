@@ -138,7 +138,7 @@ export default {
       function () {
         console.log('Mounted', this.caseID)
         if (this.caseID === undefined) {
-          this.$router.push('/')
+          // this.$router.push('/')
         } else {
           this.loading = false
           if (this.type === 'Image') {
@@ -176,7 +176,7 @@ export default {
             )
         }
       }.bind(this),
-      300
+      500
     )
   },
   computed: {
