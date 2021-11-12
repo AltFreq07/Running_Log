@@ -70,17 +70,7 @@ import mdiKeyboardBackspace from '@/mixins/Icons/mdiKeyboardBackspace.js'
 export default {
   mixins: [mdiKeyboardBackspace],
   components: { PagePreload },
-  fetch() {
-    this.type = this.$route.params.type
-    this.caseID = this.$route.params.caseID
-    this.timezone = this.$route.params.timezone
-    this.caseTitle = this.$route.params.caseTitle
-    this.data = this.$route.params.data
-    this.titleColor = this.$route.params.titleColor
-    this.baseColor = this.$route.params.baseColor
-    this.importantColor = this.$route.params.importantColor
-    console.log(this.$route.params)
-  },
+  fetch() {},
   data() {
     return {
       type: undefined,
@@ -139,6 +129,15 @@ export default {
   },
 
   mounted() {
+    this.type = this.$route.params.type
+    this.caseID = this.$route.params.caseID
+    this.timezone = this.$route.params.timezone
+    this.caseTitle = this.$route.params.caseTitle
+    this.data = this.$route.params.data
+    this.titleColor = this.$route.params.titleColor
+    this.baseColor = this.$route.params.baseColor
+    this.importantColor = this.$route.params.importantColor
+    console.log(this.$route.params)
     setTimeout(
       async function () {
         console.log('Mounted', this.caseID)
