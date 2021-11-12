@@ -167,6 +167,7 @@ export async function getHTMLData(caseData) {
   }
   img{
     max-width:600px;
+    max-height:400px
   }
   </style>
 </head>
