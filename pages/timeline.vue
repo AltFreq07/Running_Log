@@ -79,6 +79,7 @@ export default {
     this.titleColor = this.$route.params.titleColor
     this.baseColor = this.$route.params.baseColor
     this.importantColor = this.$route.params.importantColor
+    console.log(this.$route.params)
   },
   data() {
     return {
