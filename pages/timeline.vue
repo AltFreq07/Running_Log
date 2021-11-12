@@ -136,7 +136,7 @@ export default {
   mounted() {
     setTimeout(
       function () {
-        console.log('Mounted')
+        console.log('Mounted', this.caseID)
         if (this.caseID === undefined) {
           this.$router.push('/')
         } else {
