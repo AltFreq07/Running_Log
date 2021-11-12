@@ -132,13 +132,21 @@ export default {
         window.open(uri)
       }
     },
+    sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms))
+    },
   },
+
   mounted() {
     setTimeout(
-      function () {
+      async function () {
         console.log('Mounted', this.caseID)
+        while (this.caseID === undefined) {
+          console.log('sleeping')
+          await this.sleep(1000)
+        }
         if (this.caseID === undefined) {
-          // this.$router.push('/')
+          this.$router.push('/')
         } else {
           this.loading = false
           if (this.type === 'Image') {
