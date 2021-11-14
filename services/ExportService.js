@@ -113,8 +113,9 @@ function dateSorted(data) {
   console.log('sorting')
   const obj = [...data]
   return obj.sort((a, b) => {
-    const dateA = new Date(a.date)
-    const dateB = new Date(b.date)
+    //  FIX TODO get date or input col
+    const dateA = new Date(a.timestamp)
+    const dateB = new Date(b.timestamp)
     if (dateA < dateB) return -1
     if (dateA > dateB) return 1
     return 0
@@ -123,23 +124,23 @@ function dateSorted(data) {
 
 export async function getHTMLData(caseData) {
   //  sort caseData by caseData.data.date
-  let newData = { ...caseData }
+  const newData = { ...caseData }
   for (const col of newData.columns.filter(column => column.export === true && column.type === 'Screenshots')) {
     for (let i = 0; i < newData.data.length; i++) {
       if (newData.data[i][col.value]) {
         for (let j = 0; j < newData.data[i][col.value].length; j++) {
-          console.log(newData.data[i][col.value][j])
-          console.log(PasteService.toBlob(newData.data[i][col.value][j]))
           const jpg = await webPBlobToPNG(toBlob(newData.data[i][col.value][j]))
           newData.data[i][col.value][j] = jpg
         }
       }
     }
   }
+  console.log(newData)
 
-  newData = dateSorted(newData)
 
-  // console.log(newData)
+  newData.data = dateSorted(newData.data)
+
+  console.log(newData)
   const data = `<!DOCTYPE html>
 <html>
 <head>
@@ -148,26 +149,28 @@ export async function getHTMLData(caseData) {
   table {
     border: 1px solid black;
     border-collapse: collapse;
-    width:610px
+    width:900px
+    table-layout: fixed;
   }
   thead {
-    max-width:600px;
+    max-width:900px;
   }
   th {
-    max-width:600px;
+    max-width:900px;
   }
   table td {
     border: 1px solid black;
     white-space:pre-line;
     padding: 10px;
-    max-width:600px;
+    max-width:900px;
+    word-wrap: break-word;
   }
   table tr {
-    max-width:600px;
+    max-width:900px;
   }
   img{
-    max-width:600px;
-    max-height:400px
+    max-width:900px;
+    max-height:300px
   }
   </style>
 </head>
